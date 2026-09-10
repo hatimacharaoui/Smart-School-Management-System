@@ -7,11 +7,9 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "eleve")
+@PrimaryKeyJoinColumn(name = "id")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-public class Eleve {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Eleve extends User{
 
     @Column(nullable = false, unique = true)
     private String matricule;
@@ -21,11 +19,6 @@ public class Eleve {
 
     @Column(nullable = false)
     private String nom;
-
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    private String telephone;
 
     private LocalDate dateNaissance;
 
@@ -37,7 +30,5 @@ public class Eleve {
     @Column(nullable = false)
     private Long parentId;
 
-    @Column(nullable = false)
-    private boolean actif;
 
 }

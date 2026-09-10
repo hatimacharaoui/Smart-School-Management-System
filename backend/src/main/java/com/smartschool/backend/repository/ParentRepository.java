@@ -1,4 +1,7 @@
 package com.smartschool.backend.repository;
 
-public interface ParentRepository {
+import com.smartschool.backend.entity.Parent;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ParentRepository extends JpaRepository<Parent, Long> {
 }

@@ -6,10 +6,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Entity
 @Table(name = "parent")
+@PrimaryKeyJoinColumn(name = "id")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-public class Parent {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Parent extends User {
 
     @Column(nullable = false)
     private String prenom;
@@ -17,12 +16,5 @@ public class Parent {
     @Column(nullable = false)
     private String nom;
 
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    private String telephone;
-
-    @Column(nullable = false)
-    private boolean actif;
 
 }

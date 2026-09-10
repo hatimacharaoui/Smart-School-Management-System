@@ -8,7 +8,7 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "creneau_emploi_du_temps")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-public class CreneauEmploiDuTemps {
+public class HoraireEmploiDuTemp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

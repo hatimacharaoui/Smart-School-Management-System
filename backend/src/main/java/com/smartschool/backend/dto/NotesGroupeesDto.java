@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequeteNotesGroupees {
+public class NotesGroupeesDto {
         @NotNull
         private Long devoirId;
 
@@ -19,5 +19,5 @@ public class RequeteNotesGroupees {
         private Long enseignantId;
 
         @NotEmpty
-        private List<@Valid LigneNoteRequete> notes;
+        private List<@Valid NoteDto> notes;
 }
