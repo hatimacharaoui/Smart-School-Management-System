@@ -12,17 +12,5 @@ import java.util.Optional;
 
 public interface PresenceRepository extends JpaRepository<Presence, Long> {
 
-    List<Presence> findByEleveId(Long eleveId);
 
-    List<Presence> findByClasseIdAndDate(Long classeId, LocalDate date);
-
-    List<Presence> findByStatutIn(List<StatutPresence> statuts);
-
-    Optional<Presence> findByEleveIdAndDateAndMatiereId(Long eleveId, LocalDate date, Long matiereId);
-
-    boolean existsByEnseignantId(Long enseignantId);
-
-    boolean existsByClasseId(Long classeId);
-
-    boolean existsByMatiereId(Long matiereId);
 }

@@ -7,7 +7,5 @@ import java.util.List;
 
 public interface PaiementRepository extends JpaRepository<Paiement, Long> {
 
-    List<Paiement> findByEleveId(Long eleveId);
 
-    boolean existsByParentId(Long parentId);
 }

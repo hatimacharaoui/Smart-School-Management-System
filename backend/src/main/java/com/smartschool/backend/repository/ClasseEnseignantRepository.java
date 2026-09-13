@@ -9,7 +9,5 @@ import java.util.List;
 
 public interface ClasseEnseignantRepository extends JpaRepository<ClasseEnseignant, Long> {
 
-    Page<ClasseEnseignant> findByEnseignantId(Long enseignantId, Pageable pageable);
-    boolean existsByEnseignantId(Long enseignantId);
-    boolean existsByClasseId(Long classeId);
+
 }

@@ -9,10 +9,6 @@ import java.util.List;
 
 public interface EleveRepository extends JpaRepository<Eleve, Long> {
 
-    Page<Eleve> findByPrenomContainingIgnoreCaseOrNomContainingIgnoreCase(String prenom, String nom, Pageable pagination);
-    List<Eleve> findByClasseId(Long classeId);
-    List<Eleve> findByParentId(Long parentId);
-    boolean existsByClasseId(Long classeId);
-    boolean existsByParentId(Long parentId);
+
 
 }

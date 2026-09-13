@@ -1,4 +1,16 @@
 package com.smartschool.backend.service;
 
+import com.smartschool.backend.dto.PresenceDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface PresenceService {
+
+    Page<PresenceDto> afficher(Pageable pagination);
+
+    PresenceDto creer(PresenceDto dto);
+
+    PresenceDto modifier(Long id, PresenceDto dto);
+
+    void supprimer(Long id);
 }
