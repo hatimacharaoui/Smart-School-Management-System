@@ -19,18 +19,18 @@ import java.time.LocalDateTime;
 public class NotificationDto {
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long destinataireId;
 
-    @NotBlank
-    @Size(max = 180)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 180, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String titre;
 
-    @NotBlank
-    @Size(max = 1000)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 1000, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String message;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private TypeNotification type;
 
     private LocalDateTime dateCreation;

@@ -17,21 +17,21 @@ import java.time.LocalDate;
 public class PresenceDto {
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long eleveId;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long classeId;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long matiereId;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long enseignantId;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private LocalDate date;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private StatutPresence statut;
 }

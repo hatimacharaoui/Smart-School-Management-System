@@ -15,24 +15,24 @@ import java.time.LocalTime;
 public class HoraireEmploiDuTempDto {
     private Long id;
 
-    @NotBlank
-    @Size(max = 30)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 30, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String jour;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private LocalTime heureDebut;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long matiereId;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long classeId;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long enseignantId;
 
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 50, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String salle;
 
 }

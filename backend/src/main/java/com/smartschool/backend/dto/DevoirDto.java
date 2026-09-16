@@ -16,25 +16,25 @@ import java.time.LocalDate;
 public class DevoirDto {
     private Long id;
 
-    @NotBlank
-    @Size(max = 180)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 180, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String titre;
 
-    @Size(max = 1000)
+    @Size(max = 1000, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String description;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long matiereId;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long classeId;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long enseignantId;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private LocalDate dateLimite;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private StatutDevoir statut;
 }

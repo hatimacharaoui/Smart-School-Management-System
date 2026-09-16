@@ -17,11 +17,16 @@ public class AuthentificationDto {
     private Long referenceId;
     private String nomComplet;
 
-    @Email @NotBlank
+    @Email(message = "L'adresse email n'est pas valide.")
+    @NotBlank(message = "Ce champ est obligatoire.")
     private String email;
 
-    @NotBlank
-    @Size(min = 6, max = 100)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(
+            min = 6,
+            max = 100,
+            message = "La longueur doit être comprise entre 6 et 100 caractères."
+    )
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String motDePasse;
 

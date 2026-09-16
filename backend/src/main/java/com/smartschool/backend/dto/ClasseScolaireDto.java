@@ -12,12 +12,12 @@ import lombok.*;
 public class ClasseScolaireDto {
     private Long id;
 
-    @NotBlank
-    @Size(max = 30)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 30, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String nom;
 
-    @NotBlank
-    @Size(max = 80)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 80, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String niveau;
 
     private Long enseignantPrincipalId;

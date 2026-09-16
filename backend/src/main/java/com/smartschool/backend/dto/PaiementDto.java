@@ -20,25 +20,25 @@ import java.time.LocalDate;
 public class PaiementDto {
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long eleveId;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long parentId;
 
-    @Positive
+    @Positive(message = "La valeur doit être strictement positive.")
     private double montant;
 
-    @NotBlank
-    @Size(max = 80)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 80, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String methode;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private LocalDate date;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private StatutPaiement statut;
 
-    @Size(max = 500)
+    @Size(max = 500, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String urlJustificatif;
 }

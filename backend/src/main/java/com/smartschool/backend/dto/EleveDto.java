@@ -13,36 +13,37 @@ import java.time.LocalDate;
 public class EleveDto {
     private Long id;
 
-    @NotBlank
-    @Size(max = 30)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 30, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String matricule;
 
-    @NotBlank
-    @Size(max = 100)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 100, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String prenom;
 
-    @NotBlank
-    @Size(max = 100)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 100, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String nom;
 
-    @Email
-    @NotBlank
-    @Size(max = 180)
+    @Email(message = "L'adresse email n'est pas valide.")
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 180, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String email;
 
-    @Size(max = 30)
+    @Size(max = 30, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String telephone;
 
-    @Past
+    @Past(message = "La date doit être antérieure à aujourd'hui.")
     private LocalDate dateNaissance;
 
-    @Size(max = 250)
+    @Size(max = 250, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String adresse;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long classeId;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long parentId;
+
     private boolean actif;
 }

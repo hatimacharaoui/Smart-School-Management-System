@@ -15,11 +15,12 @@ import lombok.*;
 public class MatiereDto {
     private Long id;
 
-    @NotBlank
-    @Size(max = 100)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 100, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String nom;
 
-    @Min(1) @Max(10)
+    @Min(value = 1, message = "La valeur doit être supérieure ou égale à {value}.")
+    @Max(value = 10, message = "La valeur doit être inférieure ou égale à {value}.")
     private int coefficient;
 
     private boolean actif;

@@ -16,18 +16,21 @@ import java.time.LocalDate;
 public class NoteDto {
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long eleveId;
 
     private Long devoirId;
+
     private Long enseignantId;
 
-    @DecimalMin("0") @DecimalMax("20")
+    @DecimalMin(value = "0", message = "La valeur doit être supérieure ou égale à {value}.")
+    @DecimalMax(value = "20", message = "La valeur doit être inférieure ou égale à {value}.")
     private double valeur;
 
     private double valeurMaximal;
+
     private LocalDate date;
 
-    @Size(max = 500)
+    @Size(max = 500, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String commentaire;
 }

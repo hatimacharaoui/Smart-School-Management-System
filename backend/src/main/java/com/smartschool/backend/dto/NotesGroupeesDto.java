@@ -12,12 +12,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NotesGroupeesDto {
-        @NotNull
+        @NotNull(message = "Ce champ est obligatoire.")
         private Long devoirId;
 
-        @NotNull
+        @NotNull(message = "Ce champ est obligatoire.")
         private Long enseignantId;
 
-        @NotEmpty
+        @NotEmpty(message = "Cette liste ne doit pas être vide.")
         private List<@Valid NoteDto> notes;
 }

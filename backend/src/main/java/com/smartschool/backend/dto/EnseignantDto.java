@@ -14,23 +14,23 @@ import lombok.*;
 public class EnseignantDto {
     private Long id;
 
-    @NotBlank
-    @Size(max = 100)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 100, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String prenom;
 
-    @NotBlank
-    @Size(max = 100)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 100, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String nom;
 
-    @Email
-    @NotBlank
-    @Size(max = 180)
+    @Email(message = "L'adresse email n'est pas valide.")
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 180, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String email;
 
-    @Size(max = 30)
+    @Size(max = 30, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String telephone;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long matiereId;
 
     private boolean actif;

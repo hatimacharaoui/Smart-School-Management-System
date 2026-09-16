@@ -18,18 +18,18 @@ import lombok.*;
 public class UserDto {
     private Long id;
 
-    @NotBlank
-    @Size(max = 150)
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 150, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String nomComplet;
 
-    @Email
-    @NotBlank
-    @Size(max = 180)
+    @Email(message = "L'adresse email n'est pas valide.")
+    @NotBlank(message = "Ce champ est obligatoire.")
+    @Size(max = 180, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String email;
 
     private Role role;
 
-    @Size(max = 30)
+    @Size(max = 30, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String telephone;
 
     private Long referenceId;

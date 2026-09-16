@@ -12,9 +12,9 @@ import lombok.*;
 public class ClasseEnseignantDto {
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long enseignantId;
 
-    @NotNull
+    @NotNull(message = "Ce champ est obligatoire.")
     private Long classeId;
 }
