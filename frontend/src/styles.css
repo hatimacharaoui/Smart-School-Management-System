@@ -473,3 +473,23 @@ button {
   text-decoration: none;
   font-size: 14px;
 }
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 99px;
+  font-size: 12px;
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.badge.red {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.badge.amber {
+  background: #fef3c7;
+  color: #92400e;
+}
+.badge.gray {
+  background: #e2e8f0;
+  color: #475569;
+}

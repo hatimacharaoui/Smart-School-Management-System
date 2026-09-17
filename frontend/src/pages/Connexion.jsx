@@ -3,6 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import * as yup from "yup";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/src/index.ts";
+import {useAuth} from "../context/AuthContext.jsx";
 
 const schema = yup.object({
     email: yup
@@ -18,6 +19,7 @@ const schema = yup.object({
 export default function Connexion() {
 
     const [error, setError] = useState("");
+
     const {
         register,
         handleSubmit,
@@ -26,10 +28,14 @@ export default function Connexion() {
         resolver: yupResolver(schema), defaultValues: {email: "", motDePasse: ""}
     });
 
+    const {connexion} = useAuth();
+    const navigate = useNavigate();
+
     async function connecter(values) {
         setError("");
         try {
-            useNavigate("/TableauDeBord")
+            await connexion(values.email, values.motDePasse);
+            navigate("/TableauDeBord");
         } catch (exception) {
             setError("Email ou mot de passe incorrect");
         }
@@ -55,18 +61,22 @@ export default function Connexion() {
                     Saisissez vos identifiants pour accéder à votre espace.
                 </p>
 
-                {}
+                {error && <p className="badge red">{error}</p>}
 
                 <form onSubmit={handleSubmit(connecter)}>
                     <div className="form-group">
                         <label>Adresse email</label>
                         <input className="field" type="email" autoComplete="email" {...register("email")}/>
-                        {}
+                        {errors.email && (
+                            <small className="error-text">{errors.email.message}</small>
+                        )}
                     </div>
                     <div className="form-group">
                         <label>Mot de passe</label>
                         <input className="field" type="password" autoComplete="current-password" {...register("motDePasse")}/>
-                        {}
+                        {errors.motDePasse && (
+                            <small className="error-text">{errors.motDePasse.message}</small>
+                        )}
                     </div>
                     <button className="button" disabled={isSubmitting}>
                         {isSubmitting ? "connexion..." : "Se connecter"}
