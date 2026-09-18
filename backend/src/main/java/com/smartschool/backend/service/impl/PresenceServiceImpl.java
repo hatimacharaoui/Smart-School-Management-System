@@ -2,6 +2,7 @@ package com.smartschool.backend.service.impl;
 
 import com.smartschool.backend.dto.PresenceDto;
 import com.smartschool.backend.entity.Presence;
+import com.smartschool.backend.entity.StatutPresence;
 import com.smartschool.backend.mapper.Mappers;
 import com.smartschool.backend.repository.PresenceRepository;
 import com.smartschool.backend.service.PresenceService;
@@ -11,16 +12,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.core.support.RepositoryMethodInvocationListener;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PresenceServiceImpl implements PresenceService {
 
     private final PresenceRepository presenceRepository;
     private final Mappers mappers;
-    private final RepositoryMethodInvocationListener repositoryMethodInvocationListener;
 
-    public Page<PresenceDto> afficher(Pageable pagination) {
-        return presenceRepository.findAll(pagination)
+    public Page<PresenceDto> afficherPresence(Pageable pagination) {
+        return presenceRepository.findByStatutIn(List.of(StatutPresence.EN_RETARD, StatutPresence.ABSENT),pagination)
                 .map(mappers::toDto);
     }
 

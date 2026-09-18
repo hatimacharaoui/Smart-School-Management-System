@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface PresenceService {
 
-    Page<PresenceDto> afficher(Pageable pagination);
+    Page<PresenceDto> afficherPresence(Pageable pagination);
 
     PresenceDto creer(PresenceDto dto);
 

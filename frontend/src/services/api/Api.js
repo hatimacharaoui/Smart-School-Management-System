@@ -43,15 +43,6 @@ api.interceptors.response.use(
             }
         }
 
-        window.dispatchEvent(
-            new CustomEvent("erreur-api", {
-                detail: {
-                    statut: statut,
-                    message: message,
-                },
-            }),
-        );
-
         return Promise.reject(error);
     },
 );

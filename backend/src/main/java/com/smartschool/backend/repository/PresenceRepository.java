@@ -3,6 +3,8 @@ package com.smartschool.backend.repository;
 import com.smartschool.backend.entity.Presence;
 import com.smartschool.backend.entity.StatutPresence;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
@@ -11,6 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PresenceRepository extends JpaRepository<Presence, Long> {
+
+    Page<Presence> findByStatutIn(List<StatutPresence> statuts, Pageable pagination);
 
 
 }
