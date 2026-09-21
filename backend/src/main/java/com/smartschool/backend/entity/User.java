@@ -7,7 +7,7 @@ import lombok.*;
 @Entity
 @Table(name = "utilisateur")
 @Inheritance(strategy = InheritanceType.JOINED)
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,8 +27,6 @@ public class User {
     private Role role;
 
     private String telephone;
-
-    private Long referenceId;
 
     @Column(nullable = false)
     private boolean actif;

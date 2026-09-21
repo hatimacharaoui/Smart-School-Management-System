@@ -2,6 +2,6 @@ import api from "./Api.js";
 
 
 export const paiementsApi = {
-    getAll: (params) => api.get("api/paiements", {params}),
+    getAll: (params) => api.get("/paiements", {params}),
 
 };

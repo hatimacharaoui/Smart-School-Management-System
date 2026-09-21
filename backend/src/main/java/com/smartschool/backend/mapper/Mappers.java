@@ -2,6 +2,7 @@ package com.smartschool.backend.mapper;
 
 import com.smartschool.backend.dto.*;
 import com.smartschool.backend.entity.*;
+import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -13,13 +14,11 @@ public interface Mappers {
     @Mapping(target = "nomComplet", ignore = true)
     @Mapping(target = "motDePasse", ignore = true)
     @Mapping(target = "role", ignore = true)
-    @Mapping(target = "referenceId", ignore = true)
     Eleve toEntite(EleveDto dto);
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "nomComplet", ignore = true)
     @Mapping(target = "motDePasse", ignore = true)
     @Mapping(target = "role", ignore = true)
-    @Mapping(target = "referenceId", ignore = true)
     void update(EleveDto dto, @MappingTarget Eleve eleve);
 
 
@@ -28,13 +27,11 @@ public interface Mappers {
     @Mapping(target = "nomComplet", ignore = true)
     @Mapping(target = "motDePasse", ignore = true)
     @Mapping(target = "role", ignore = true)
-    @Mapping(target = "referenceId", ignore = true)
     Enseignant toEntite(EnseignantDto dto);
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "nomComplet", ignore = true)
     @Mapping(target = "motDePasse", ignore = true)
     @Mapping(target = "role", ignore = true)
-    @Mapping(target = "referenceId", ignore = true)
     void update(EnseignantDto dto, @MappingTarget Enseignant enseignant);
 
 
@@ -43,13 +40,11 @@ public interface Mappers {
     @Mapping(target = "nomComplet", ignore = true)
     @Mapping(target = "motDePasse", ignore = true)
     @Mapping(target = "role", ignore = true)
-    @Mapping(target = "referenceId", ignore = true)
     Parent toEntite(ParentDto dto);
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "nomComplet", ignore = true)
     @Mapping(target = "motDePasse", ignore = true)
     @Mapping(target = "role", ignore = true)
-    @Mapping(target = "referenceId", ignore = true)
     void update(ParentDto dto, @MappingTarget Parent parent);
 
 
@@ -115,7 +110,6 @@ public interface Mappers {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "motDePasse", ignore = true)
     @Mapping(target = "role", ignore = true)
-    @Mapping(target = "referenceId", ignore = true)
     @Mapping(target = "actif", ignore = true)
     User toEntite(UserDto dto);
     void update(UserDto dto, @MappingTarget User user);

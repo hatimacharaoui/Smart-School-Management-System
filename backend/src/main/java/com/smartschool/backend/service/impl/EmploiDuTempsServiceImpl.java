@@ -21,8 +21,10 @@ public class EmploiDuTempsServiceImpl implements EmploiDuTempsService {
     private final ClasseEnseignantRepository classeEnseignantRepository;
 
 
-    public Page<HoraireEmploiDuTempDto> afficher(Pageable pagination) {
-        return horaireEmploiDuTempRepository.findAll(pagination)
+
+    @Override
+    public Page<HoraireEmploiDuTempDto> afficher(String jour, Long classId, Long enseignantId, Pageable pagination) {
+        return horaireEmploiDuTempRepository.rechercher(jour, classId, enseignantId, pagination)
                 .map(mappers::toDto);
     }
 

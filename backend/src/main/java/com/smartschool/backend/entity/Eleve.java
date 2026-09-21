@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "eleve")
 @PrimaryKeyJoinColumn(name = "id")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Eleve extends User{
 
     @Column(nullable = false, unique = true)

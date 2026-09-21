@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface EmploiDuTempsService {
-    Page<HoraireEmploiDuTempDto> afficher(Pageable pagination);
+    Page<HoraireEmploiDuTempDto> afficher(String jour, Long classId, Long enseignantId ,Pageable pagination);
 
     HoraireEmploiDuTempDto creer(HoraireEmploiDuTempDto dto);
 

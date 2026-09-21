@@ -8,7 +8,7 @@ import org.springframework.boot.webmvc.autoconfigure.WebMvcProperties;
 @Entity
 @Table(name = "enseignant")
 @PrimaryKeyJoinColumn(name = "id")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Enseignant extends User {
 
     @Column(nullable = false)

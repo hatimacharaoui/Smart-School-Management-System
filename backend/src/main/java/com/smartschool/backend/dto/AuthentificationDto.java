@@ -14,7 +14,6 @@ import lombok.*;
 public class AuthentificationDto {
 
     private Long id;
-    private Long referenceId;
     private String nomComplet;
 
     @Email(message = "L'adresse email n'est pas valide.")

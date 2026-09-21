@@ -1,6 +1,6 @@
 import React from 'react';
 import {useEffect,useState} from "react";
-import {carte} from "../components/Elements.jsx";
+import {Carte} from "../components/Elements.jsx";
 import {classesApi} from "../services/api/classesApi.js";
 import {devoirsApi} from "../services/api/devoirsApi.js";
 import {elevesApi} from "../services/api/elevesApi.js";
@@ -68,14 +68,14 @@ export default function TableauDeBordAdministrateur() {
             </header>
             {erreur && <p className="notice">{erreur}</p>}
             <div className="stats">
-                <carte label="Elèves" value={total.eleves || 0} />
-                <carte label="Enseignants" value={total.enseignants || 0} />
-                <carte label="Classes" value={total.className || 0} />
-                <carte label="Matières" value={total.matieres || 0} />
-                <carte label="Absences et retards" value={total.presences || 0} />
-                <carte label="Devoirs en correction" value={total.devoirs || 0} />
-                <carte label="Paiements en attente" value={total.paiements || 0} />
-                <carte label="Notifications non lues" value={total.eleves || 0} />
+                <Carte label="Elèves" value={total.eleves || 0} />
+                <Carte label="Enseignants" value={total.enseignants || 0} />
+                <Carte label="Classes" value={total.className || 0} />
+                <Carte label="Matières" value={total.matieres || 0} />
+                <Carte label="Absences et retards" value={total.presences || 0} />
+                <Carte label="Devoirs en correction" value={total.devoirs || 0} />
+                <Carte label="Paiements en attente" value={total.paiements || 0} />
+                <Carte label="Notifications non lues" value={total.eleves || 0} />
             </div>
             <section className="card dashboard-section">
                 <div className="card-body">
@@ -98,12 +98,20 @@ export default function TableauDeBordAdministrateur() {
                             return (
                                 <tr key={presence.id}>
                                     <td>
-
+                                        {eleve ? eleve.prenom + " " + eleve.nom : `Elève #${presence.eleveId}`}
                                     </td>
+                                    <td>{classes.find((classe) => classe.id === presence.classeId)?.nom || "—"}</td>
+                                    <td>{presence.date}</td>
+                                    <td>{presence.statut}</td>
                                 </tr>
-                            )
+                            );
                         })
                         }
+                        <tr>
+                            <td>
+                        {presences.length === 0 && "Aucune absence, aucun retard"}
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

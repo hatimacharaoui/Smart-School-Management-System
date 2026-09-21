@@ -5,7 +5,6 @@ CREATE TABLE utilisateur (
                              mot_de_passe VARCHAR(255) NOT NULL,
                              role VARCHAR(30) NOT NULL,
                              telephone VARCHAR(30),
-                             reference_id BIGINT,
                              actif BOOLEAN NOT NULL DEFAULT TRUE
 );
 
@@ -123,9 +122,20 @@ CREATE TABLE notification (
                               entite_liee_id BIGINT
 );
 
-CREATE INDEX idx_eleve_classe ON eleve(classe_id);
-CREATE INDEX idx_eleve_parent ON eleve(parent_id);
-CREATE INDEX idx_devoir_classe ON devoir(classe_id);
-CREATE INDEX idx_devoir_enseignant ON devoir(enseignant_id);
-CREATE INDEX idx_presence_classe_date ON presence(classe_id, date);
-CREATE INDEX idx_notification_destinataire ON notification(destinataire_id, date_creation);
+CREATE INDEX idx_eleve_classe
+    ON eleve(classe_id);
+
+CREATE INDEX idx_eleve_parent
+    ON eleve(parent_id);
+
+CREATE INDEX idx_devoir_classe
+    ON devoir(classe_id);
+
+CREATE INDEX idx_devoir_enseignant
+    ON devoir(enseignant_id);
+
+CREATE INDEX idx_presence_classe_date
+    ON presence(classe_id, date);
+
+CREATE INDEX idx_notification_destinataire
+    ON notification(destinataire_id, date_creation);

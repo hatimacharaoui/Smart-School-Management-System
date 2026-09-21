@@ -495,9 +495,20 @@ button {
 }
 
 
-app-school{
+.app-school{
   min-height: 100vh;
   display: flex;
+}
+
+
+.sidebar {
+  width: 245px;
+  background: white;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  inset: 0 auto 0 0;
 }
 
 .sidebar nav {
@@ -512,7 +523,7 @@ app-school{
   width: 100%;
   padding: 10px 12px;
   border-radius: 8px;
-  color: #475569;
+  color: #223b65;
   text-decoration: none;
   font-size: 14px;
   border: 0;
@@ -605,22 +616,38 @@ app-school{
 .card-body {
   padding: 20px;
 }
+
+
 .stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 22px;
+  gap: 18px;
+  margin-bottom: 25px;
 }
+
 .stat {
-  background: white;
-  border: 1px solid #e2e8f0;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #c0d4ff;
   border-radius: 10px;
-  padding: 18px;
+  padding: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
 }
+
+.stat span {
+  display: block;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
 .stat strong {
   display: block;
-  font-size: 25px;
-  margin-top: 8px;
+  color: #0f172a;
+  font-size: 28px;
+  font-weight: 700;
 }
 
 
@@ -642,7 +669,9 @@ app-school{
 .dashboard-section h2,
 .child-file h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #0f172a;
 }
 
 .table-wrap {
@@ -654,18 +683,19 @@ table {
   font-size: 14px;
 }
 th {
+  background: #f1f3ff;
+  color: #466280;
+  font-size: 12px;
+  font-weight: 600;
   text-align: left;
-  background: #f8fafc;
-  color: #64748b;
-  text-transform: uppercase;
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  padding: 12px 15px;
+  padding: 13px 20px;
+  border-bottom: 1px solid #e2e8f0;
 }
 td {
-  padding: 13px 15px;
-  border-top: 1px solid #f1f5f9;
-  vertical-align: top;
+  padding: 14px 20px;
+  font-size: 14px;
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
 }
 
 .notice {

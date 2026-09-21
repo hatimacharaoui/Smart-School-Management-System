@@ -32,7 +32,5 @@ public class UserDto {
     @Size(max = 30, message = "La longueur doit être comprise entre {min} et {max} caractères.")
     private String telephone;
 
-    private Long referenceId;
-
     private boolean actif;
 }

@@ -31,7 +31,6 @@ public class AuthentificationServiceImpl implements AuthentificationService {
 
         return AuthentificationDto.builder()
                 .id(user.getId())
-                .referenceId(user.getReferenceId())
                 .nomComplet(user.getNomComplet())
                 .email(user.getEmail())
                 .token(token)

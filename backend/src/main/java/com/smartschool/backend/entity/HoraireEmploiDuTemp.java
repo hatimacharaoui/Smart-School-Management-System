@@ -6,7 +6,7 @@ import lombok.*;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "creneau_emploi_du_temps")
+@Table(name = "horaire_emploi_du_temp")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class HoraireEmploiDuTemp {
     @Id

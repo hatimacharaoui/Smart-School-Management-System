@@ -7,7 +7,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Entity
 @Table(name = "parent")
 @PrimaryKeyJoinColumn(name = "id")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Parent extends User {
 
     @Column(nullable = false)

@@ -15,9 +15,9 @@ import {
 import {NavLink, Outlet} from "react-router-dom";
 import {useAuth} from "../context/AuthContext.jsx";
 
-const menus = {
+const menu = {
     ADMINISTRATEUR: [
-        { to: "/tableau-de-bord", label: "Tableau de bord", icon: LayoutDashboard },
+        { to: "/TableauDeBord", label: "Tableau de bord", icon: LayoutDashboard },
         { to: "/eleves", label: "Élèves", icon: Users },
         { to: "/enseignants", label: "Enseignants", icon: BookOpen },
         { to: "/parents", label: "Parents", icon: UserRound },
@@ -83,7 +83,8 @@ export default function Layout() {
                         return (
                             <NavLink key={item.to} to={item.to}
                                      className={({isActive}) => isActive? "nav-link active" : "nav-link"}>
-                                <item.icon size={18}/>
+                                <item.icon size={18} />
+                                {item.label}
                             </NavLink>
                         );
                     })}
@@ -97,7 +98,7 @@ export default function Layout() {
                 <header className="topbar">
                     <Bell size={18}/>
                     <span className="identity">
-                        <strong>{user.nomComplet}</strong>
+                        <strong>{user.nomComplet}</strong><br/>
                         <small>{libelleRole(user.role)}</small>
                     </span>
                 </header>

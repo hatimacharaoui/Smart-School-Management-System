@@ -12,9 +12,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Accueil />} />
           <Route path="/connexion" element={<Connexion />} />
-          <Route element={<ProtectedRoute><Layout /></ProtectedRoute>} />
+          <Route element={<ProtectedRoute><Layout /></ProtectedRoute>} >
           <Route path="/TableauDeBord" element={<TableauDeBord />} />
 
+
+
+          </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
   );

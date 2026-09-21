@@ -2,6 +2,7 @@ package com.smartschool.backend.service.impl;
 
 import com.smartschool.backend.dto.DevoirDto;
 import com.smartschool.backend.entity.Devoir;
+import com.smartschool.backend.entity.StatutDevoir;
 import com.smartschool.backend.mapper.Mappers;
 import com.smartschool.backend.repository.DevoirRepository;
 import com.smartschool.backend.service.DevoirService;
@@ -43,6 +44,11 @@ public class DevoirServiceImpl implements DevoirService {
         Devoir devoir = findById(id);
         devoirRepository.delete(devoir);
 
+    }
+
+    public Page<DevoirDto> chercherParEnseignant(Long enseignantId, StatutDevoir statut, Pageable pagination) {
+        return devoirRepository.chercherParEnseignant(enseignantId, statut, pagination)
+                .map(mappers::toDto);
     }
 
     private Devoir findById(Long id) {
