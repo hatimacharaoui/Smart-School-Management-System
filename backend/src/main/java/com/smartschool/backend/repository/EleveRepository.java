@@ -10,5 +10,5 @@ import java.util.List;
 public interface EleveRepository extends JpaRepository<Eleve, Long> {
 
 
-
+    Page<Eleve> findByParentId(Long parentId, Pageable pageable);
 }

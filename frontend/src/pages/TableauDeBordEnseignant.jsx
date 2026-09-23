@@ -6,6 +6,7 @@ import {enseignantsApi} from "../services/api/enseignantsApi.js";
 import {emploiDuTempsApi} from "../services/api/emploiDuTempsApi.js";
 import {classesApi} from "../services/api/classesApi.js";
 import {matieresApi} from "../services/api/matieresApi.js";
+import {notificationsApi} from "../services/api/notificationsApi.js";
 
 
 export default function TableauDeBordEnseignant() {
@@ -31,7 +32,7 @@ export default function TableauDeBordEnseignant() {
                 devoirsApi.getByEnseignant(enseignantId, {statut: "EN_CORRECTION", size: 10}),
                 enseignantsApi.getClasses(enseignantId, {size: 100}),
                 emploiDuTempsApi.getAll({jour: nomJourAujourdhui(), enseignantId, size: 10, sort: "heureDebut,asc"}),
-                /* notifications */
+                notificationsApi.getByUser(user.id, {lue: false, size: 1}),
                 classesApi.getAll({ size: 100}),
                 matieresApi.getAll( {size: 100})
             ]);
@@ -39,14 +40,14 @@ export default function TableauDeBordEnseignant() {
             setDevoirs(reponses[0].data.content);
             setClasseLie(reponses[1].data.content);
             setHoraires(reponses[2].data.content);
-            setClasses(reponses[3].data.content);
-            setMatieres(reponses[4].data.content);
+            setClasses(reponses[4].data.content);
+            setMatieres(reponses[5].data.content);
 
             setTotal( {
                 devoirs: reponses[0].data.totalElements,
                 classes: reponses[1].data.totalElements,
                 cours: reponses[2].data.totalElements,
-                notifications: reponses[4].data.totalElements
+                notifications: reponses[3].data.totalElements
             });
 
         } catch (exception) {
@@ -63,7 +64,7 @@ export default function TableauDeBordEnseignant() {
             <div className="stats">
                 <Carte label="Devoirs en correction" value={total.devoirs || 0 }/>
                 <Carte label="Mes classes" value={total.classes || 0 }/>
-                <Carte label="Notification non lues" value={total.devoirs || 0 }/>
+                <Carte label="Notification non lues" value={total.notifications || 0 }/>
                 <Carte label="Cours aujourd'hui" value={total.cours || 0 }/>
             </div>
 

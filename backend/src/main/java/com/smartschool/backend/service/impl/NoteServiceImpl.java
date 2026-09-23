@@ -18,6 +18,11 @@ public class NoteServiceImpl implements NoteService {
     private final Mappers mappers;
     private final HoraireEmploiDuTempRepository horaireEmploiDuTempRepository;
 
+    public Page<NoteDto> chercherParEleve(Long id, Pageable pageable) {
+        return noteRepository.findByEleveId(id, pageable)
+                .map(mappers::toDto);
+    }
+
     public Page<NoteDto> afficher(Pageable pagination) {
         return noteRepository.findAll(pagination)
                 .map(mappers::toDto);

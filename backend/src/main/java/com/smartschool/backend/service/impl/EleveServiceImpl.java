@@ -19,6 +19,12 @@ public class EleveServiceImpl implements EleveService {
     private final Mappers mapper;
     private final UserRepository userRepository;
 
+    public Page<EleveDto> chercherParParent(Long parentId, Pageable pageable) {
+
+        return eleveRepository.findByParentId(parentId, pageable)
+                .map(mapper::toDto);
+    }
+
     public Page<EleveDto> afficher(Pageable pagination) {
 
         return eleveRepository.findAll(pagination).map(mapper::toDto);

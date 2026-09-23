@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface NoteService {
 
+    Page<NoteDto> chercherParEleve(Long id, Pageable pageable);
+
     Page<NoteDto> afficher(Pageable pagination);
 
     NoteDto creer(NoteDto dto);

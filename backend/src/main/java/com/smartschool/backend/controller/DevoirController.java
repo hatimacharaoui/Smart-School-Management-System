@@ -15,6 +15,14 @@ import org.springframework.web.bind.annotation.*;
 public class DevoirController {
     private final DevoirService devoirService;
 
+    @GetMapping("/classes/{id}")
+    public ResponseEntity<Page<DevoirDto>> chercherParClasse(
+            @PathVariable Long id, @RequestParam(required = false) String recherche,
+            @RequestParam(required = false) StatutDevoir statut, Pageable pageable)
+    {
+        return ResponseEntity.ok(devoirService.chercherParClasse(id, recherche, statut, pageable));
+    }
+
     @GetMapping
     public ResponseEntity<Page<DevoirDto>> afficher(Pageable pagination) {
         return ResponseEntity.ok(devoirService.afficher(pagination));

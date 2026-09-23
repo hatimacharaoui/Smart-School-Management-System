@@ -14,6 +14,8 @@ import java.util.Optional;
 
 public interface PresenceRepository extends JpaRepository<Presence, Long> {
 
+    Page<Presence> findByEleveId(Long eleveId, Pageable pageable);
+
     Page<Presence> findByStatutIn(List<StatutPresence> statuts, Pageable pagination);
 
 

@@ -20,6 +20,11 @@ public class DevoirServiceImpl implements DevoirService {
     private final Mappers mappers;
 
 
+    public Page<DevoirDto> chercherParClasse(Long classeId, String recherche, StatutDevoir statut, Pageable pageable) {
+        return devoirRepository.rechercher(recherche, statut, null, classeId, pageable)
+                .map(mappers::toDto);
+    }
+
     public Page<DevoirDto> afficher(Pageable pagination) {
         return devoirRepository.findAll(pagination).map(mappers::toDto);
     }

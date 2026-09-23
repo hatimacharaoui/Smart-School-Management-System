@@ -21,6 +21,12 @@ public class PresenceServiceImpl implements PresenceService {
     private final PresenceRepository presenceRepository;
     private final Mappers mappers;
 
+
+    public Page<PresenceDto> chercherParEleve(Long eleveId, Pageable pageable) {
+        return presenceRepository.findByEleveId(eleveId, pageable)
+                .map(mappers::toDto);
+    }
+
     public Page<PresenceDto> afficherPresence(Pageable pagination) {
         return presenceRepository.findByStatutIn(List.of(StatutPresence.EN_RETARD, StatutPresence.ABSENT),pagination)
                 .map(mappers::toDto);

@@ -2,15 +2,16 @@ package com.smartschool.backend.controller;
 
 
 import com.smartschool.backend.dto.PaiementDto;
+import com.smartschool.backend.entity.StatutPaiement;
 import com.smartschool.backend.service.PaiementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/paiements")
@@ -24,5 +25,14 @@ public class PaiementController {
     public ResponseEntity<Page<PaiementDto>> afficher(Pageable pagination) {
 
         return ResponseEntity.ok(paiementService.afficher(pagination));
+    }
+
+    @GetMapping("/eleve/{id}")
+    public ResponseEntity<Page<PaiementDto>> chercherParEleve(
+            @PathVariable Long id, @RequestParam(required = false)StatutPaiement statut,
+            @RequestParam(required = false)LocalDate dateDebut, @RequestParam(required = false) LocalDate dateFin,
+            Pageable pageable ) {
+
+        return ResponseEntity.ok(paiementService.chercherParEleve(id, statut, dateDebut, dateFin, pageable));
     }
 }

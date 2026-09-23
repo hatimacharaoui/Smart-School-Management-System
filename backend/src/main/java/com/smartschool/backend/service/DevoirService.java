@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface DevoirService {
 
+    Page<DevoirDto> chercherParClasse(Long id, String recherche, StatutDevoir statut, Pageable pageable);
+
     Page<DevoirDto> afficher(Pageable pagination);
 
     DevoirDto creer(DevoirDto devoirDto);

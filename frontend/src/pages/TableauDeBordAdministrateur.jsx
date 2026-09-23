@@ -9,6 +9,7 @@ import {matieresApi} from "../services/api/matieresApi.js";
 import {presencesApi} from "../services/api/presencesApi.js";
 import {paiementsApi} from "../services/api/paiementsApi.js";
 import {useAuth} from "../context/AuthContext.jsx";
+import {notificationsApi} from "../services/api/notificationsApi.js";
 
 
 export default function TableauDeBordAdministrateur() {
@@ -34,8 +35,8 @@ export default function TableauDeBordAdministrateur() {
                 presencesApi.getPresence({size: 10, sort: "date,desc"}),
                 matieresApi.getAll({size: 1}),
                 devoirsApi.getAll({statut: "EN-CORRECTION", size: 1}),
-                paiementsApi.getAll({statut: "EN-ATTENTE", size: 1})
-                /* notificationApi */
+                paiementsApi.getAll({statut: "EN-ATTENTE", size: 1}),
+                notificationsApi.getByUser(user.id, { lue: false, size: 1})
             ]);
 
             setEleves(responses[0].data.content);
@@ -50,7 +51,7 @@ export default function TableauDeBordAdministrateur() {
                 matieres: responses[4].data.totalElements,
                 devoirs: responses[5].data.totalElements,
                 paiements: responses[6].data.totalElements,
-                /* notifications: responses[7].data.totalElements, */
+                notifications: responses[7].data.totalElements,
             });
 
         } catch (exception) {
@@ -75,7 +76,7 @@ export default function TableauDeBordAdministrateur() {
                 <Carte label="Absences et retards" value={total.presences || 0} />
                 <Carte label="Devoirs en correction" value={total.devoirs || 0} />
                 <Carte label="Paiements en attente" value={total.paiements || 0} />
-                <Carte label="Notifications non lues" value={total.eleves || 0} />
+                <Carte label="Notifications non lues" value={total.notifications || 0} />
             </div>
             <section className="card dashboard-section">
                 <div className="card-body">

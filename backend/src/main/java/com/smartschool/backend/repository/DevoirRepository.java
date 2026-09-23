@@ -22,4 +22,20 @@ public interface DevoirRepository extends JpaRepository<Devoir, Long> {
             @Param("statut") StatutDevoir statut, Pageable pagination );
 
 
+    @Query("""
+            SELECT d FROM Devoir d
+            WHERE (:enseignantId IS NULL OR d.enseignantId = :enseignantId)
+              AND (:classeId IS NULL OR d.classeId = :classeId)
+              AND (:statut IS NULL OR d.statut = :statut)
+              AND (:recherche IS NULL OR :recherche = ''
+                   OR LOWER(d.titre) LIKE LOWER(CONCAT('%', :recherche, '%')))
+            """)
+    Page<Devoir> rechercher(
+            @org.springframework.data.repository.query.Param("recherche") String recherche,
+            @org.springframework.data.repository.query.Param("statut") StatutDevoir statut,
+            @org.springframework.data.repository.query.Param("enseignantId") Long enseignantId,
+            @org.springframework.data.repository.query.Param("classeId") Long classeId,
+            Pageable pagination
+    );
+
 }

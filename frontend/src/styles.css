@@ -617,6 +617,19 @@ button {
   padding: 20px;
 }
 
+.child-file {
+  margin-bottom: 18px;
+}
+
+.dashboard-section h2,
+.child-file h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.child-file-grid {
+  grid-template-columns: 1fr 1fr;
+}
 
 .stats {
   display: grid;
