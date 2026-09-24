@@ -1,15 +1,15 @@
 import React from 'react';
 import {useEffect,useState} from "react";
-import {Carte} from "../components/Elements.jsx";
-import {classesApi} from "../services/api/classesApi.js";
-import {devoirsApi} from "../services/api/devoirsApi.js";
-import {elevesApi} from "../services/api/elevesApi.js";
-import {enseignantsApi} from "../services/api/enseignantsApi.js";
-import {matieresApi} from "../services/api/matieresApi.js";
-import {presencesApi} from "../services/api/presencesApi.js";
-import {paiementsApi} from "../services/api/paiementsApi.js";
-import {useAuth} from "../context/AuthContext.jsx";
-import {notificationsApi} from "../services/api/notificationsApi.js";
+import {Carte} from "../../components/Elements.jsx";
+import {classesApi} from "../../services/api/classesApi.js";
+import {devoirsApi} from "../../services/api/devoirsApi.js";
+import {elevesApi} from "../../services/api/elevesApi.js";
+import {enseignantsApi} from "../../services/api/enseignantsApi.js";
+import {matieresApi} from "../../services/api/matieresApi.js";
+import {presencesApi} from "../../services/api/presencesApi.js";
+import {paiementsApi} from "../../services/api/paiementsApi.js";
+import {useAuth} from "../../context/AuthContext.jsx";
+import {notificationsApi} from "../../services/api/notificationsApi.js";
 
 
 export default function TableauDeBordAdministrateur() {

@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {useAuth} from "../context/AuthContext.jsx";
-import {elevesApi} from "../services/api/elevesApi.js";
-import {notificationsApi} from "../services/api/notificationsApi.js";
-import {matieresApi} from "../services/api/matieresApi.js";
-import {classesApi} from "../services/api/classesApi.js";
-import {notesApi} from "../services/api/notesApi.js";
-import {devoirsApi} from "../services/api/devoirsApi.js";
-import {paiementsApi} from "../services/api/paiementsApi.js";
-import {presencesApi} from "../services/api/presencesApi.js";
-import {Carte} from "../components/Elements.jsx";
+import {useAuth} from "../../context/AuthContext.jsx";
+import {elevesApi} from "../../services/api/elevesApi.js";
+import {notificationsApi} from "../../services/api/notificationsApi.js";
+import {matieresApi} from "../../services/api/matieresApi.js";
+import {classesApi} from "../../services/api/classesApi.js";
+import {notesApi} from "../../services/api/notesApi.js";
+import {devoirsApi} from "../../services/api/devoirsApi.js";
+import {paiementsApi} from "../../services/api/paiementsApi.js";
+import {presencesApi} from "../../services/api/presencesApi.js";
+import {Carte} from "../../components/Elements.jsx";
 
 
 export default function TableauDeBordParent() {

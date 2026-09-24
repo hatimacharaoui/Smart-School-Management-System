@@ -21,3 +21,4 @@ export function nomJourAujourdhui() {
     return jours[new Date().getDay()];
 }
 
+

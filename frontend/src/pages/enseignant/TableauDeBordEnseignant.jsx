@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {useAuth} from "../context/AuthContext.jsx";
-import {Carte, nomJourAujourdhui} from "../components/Elements.jsx";
-import {devoirsApi} from "../services/api/devoirsApi.js";
-import {enseignantsApi} from "../services/api/enseignantsApi.js";
-import {emploiDuTempsApi} from "../services/api/emploiDuTempsApi.js";
-import {classesApi} from "../services/api/classesApi.js";
-import {matieresApi} from "../services/api/matieresApi.js";
-import {notificationsApi} from "../services/api/notificationsApi.js";
+import {useAuth} from "../../context/AuthContext.jsx";
+import {Carte, nomJourAujourdhui} from "../../components/Elements.jsx";
+import {devoirsApi} from "../../services/api/devoirsApi.js";
+import {enseignantsApi} from "../../services/api/enseignantsApi.js";
+import {emploiDuTempsApi} from "../../services/api/emploiDuTempsApi.js";
+import {classesApi} from "../../services/api/classesApi.js";
+import {matieresApi} from "../../services/api/matieresApi.js";
+import {notificationsApi} from "../../services/api/notificationsApi.js";
 
 
 export default function TableauDeBordEnseignant() {

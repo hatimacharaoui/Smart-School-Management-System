@@ -39,7 +39,10 @@ button {
   border: 1px solid #cbd5e1;
 }
 
-
+.button.small {
+  padding: 7px 10px;
+  font-size: 12px;
+}
 
 .landing-logo {
   width: 40px;
@@ -467,6 +470,16 @@ button {
   background: white;
 }
 
+.search {
+  max-width: 320px;
+}
+
+.actions {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
 .back-link {
   text-align: center;
   color: #64748b;
@@ -617,6 +630,54 @@ button {
   padding: 20px;
 }
 
+.form-card {
+  max-width: 760px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 6px;
+}
+
+.checkbox-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid #dbe2ea;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.checkbox-item:hover {
+  background-color: #f8fafc;
+}
+
+.checkbox-item input {
+  width: 17px;
+  height: 17px;
+}
+
+@media (max-width: 768px) {
+  .checkbox-list {
+    grid-template-columns: 1fr;
+  }
+}
+
 .child-file {
   margin-bottom: 18px;
 }
@@ -716,4 +777,11 @@ td {
   background: #eff6ff;
   color: #1d4ed8;
   border-radius: 8px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
 }

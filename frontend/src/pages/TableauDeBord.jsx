@@ -1,8 +1,8 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import TableauDeBordAdministrateur from "./TableauDeBordAdministrateur.jsx";
-import TableauDeBordEnseignant from "./TableauDeBordEnseignant.jsx";
-import TableauDeBordParent from "./TableauDeBordParent.jsx";
+import TableauDeBordAdministrateur from "./administrateur/TableauDeBordAdministrateur.jsx";
+import TableauDeBordEnseignant from "./enseignant/TableauDeBordEnseignant.jsx";
+import TableauDeBordParent from "./parent/TableauDeBordParent.jsx";
 
 export default function TableauDeBord() {
     const { user } = useAuth();
