@@ -469,3 +469,8 @@ SELECT id, 'Annonce administrative',
        'ANNONCE', NOW(), FALSE, NULL
 FROM utilisateur
 WHERE role = 'PARENT';
+
+
+UPDATE paiement
+SET methode = 'Virement bancaire'
+WHERE methode NOT IN ('Espèces', 'Virement bancaire');

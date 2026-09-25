@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination";
 import usePagination, {PageVide} from "../../hooks/usePagination.js";
 import {enseignantsApi} from "../../services/api/enseignantsApi.js";
-import {notesApi as matieresAPI} from "../../services/api/notesApi.js";
 import {classesApi} from "../../services/api/classesApi.js";
 import {affectationsClassesApi} from "../../services/api/affectationsClassesApi.js";
+import {matieresApi} from "../../services/api/matieresApi.js";
 
 export default function EnseignantsAdministrateur() {
     const [pageEnseignants, setPageEnseignants] = useState(PageVide());
@@ -27,7 +27,7 @@ export default function EnseignantsAdministrateur() {
             const reponses = await Promise.all([
                 enseignantsApi.getAll({
                     recherche, ...pagination.parametres,}),
-                matieresAPI.getAll({ size: 1000 }),
+                matieresApi.getAll({ size: 1000 }),
                 classesApi.getAll({ size: 1000 }),
                 affectationsClassesApi.getAll({ size: 1000 }),
             ]);

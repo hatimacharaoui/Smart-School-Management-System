@@ -9,6 +9,8 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface Mappers {
+
+    @Mapping(target = "motDePasse", ignore = true)
     EleveDto toDto(Eleve eleve);
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "nomComplet", ignore = true)
@@ -22,6 +24,7 @@ public interface Mappers {
     void update(EleveDto dto, @MappingTarget Eleve eleve);
 
 
+    @Mapping(target = "motDePasse", ignore = true)
     EnseignantDto toDto(Enseignant enseignant);
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "nomComplet", ignore = true)
@@ -35,6 +38,7 @@ public interface Mappers {
     void update(EnseignantDto dto, @MappingTarget Enseignant enseignant);
 
 
+    @Mapping(target = "motDePasse", ignore = true)
     ParentDto toDto(Parent parent);
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "nomComplet", ignore = true)

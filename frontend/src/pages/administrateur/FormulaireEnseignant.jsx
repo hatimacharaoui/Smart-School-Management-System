@@ -6,74 +6,34 @@ import * as yup from "yup";
 import {matieresApi} from "../../services/api/matieresApi.js";
 import {classesApi} from "../../services/api/classesApi.js";
 import {enseignantsApi} from "../../services/api/enseignantsApi.js";
-import {parentsApi} from "../../services/api/parentsApi.js";
+import {obtenirMessageErreur} from "../../services/api/Api.js";
 
-const configs = {
-    enseignants: {
-        ajout: "Ajouter un enseignant",
-        modification: "Modifier un enseignant",
-        fields: [
-            ["prenom", "Prénom"],
-            ["nom", "Nom"],
-            ["email", "Email", "email"],
-            ["telephone", "Téléphone"],
-            ["matiereId", "Matière", "select-matiere"],
-        ],
-        defaults: {
-            prenom: "",
-            nom: "",
-            email: "",
-            telephone: "",
-            matiereId: 1,
-            classeIds: [],
-            actif: true,
-        },
-    },
-    parents: {
-        ajout: "Ajouter un parent",
-        modification: "Modifier un parent",
-        fields: [
-            ["prenom", "Prénom"],
-            ["nom", "Nom"],
-            ["email", "Email", "email"],
-            ["telephone", "Téléphone"],
-        ],
-        defaults: {
-            prenom: "",
-            nom: "",
-            email: "",
-            telephone: "",
-            actif: true,
-        },
-    },
-    classes: {
-        ajout: "Ajouter une classe",
-        modification: "Modifier une classe",
-        fields: [
-            ["nom", "Nom de la classe"],
-            ["niveau", "Niveau"],
-        ],
-        defaults: { nom: "", niveau: "" },
-    },
-    matieres: {
-        ajout: "Ajouter une matière",
-        modification: "Modifier une matière",
-        fields: [
-            ["nom", "Nom de la matière"],
-            ["coefficient", "Coefficient", "number"],
-        ],
-        defaults: { nom: "", coefficient: 1, actif: true },
-    },
+const valeursInitiales = {
+    prenom: "",
+    nom: "",
+    email: "",
+    motDePasse: "",
+    telephone: "",
+    matiereId: "",
+    classeIds: [],
+    actif: true,
 };
 
-const schemas = {
-    enseignants: yup.object({
+function creerSchema(estCreation) {
+    return yup.object({
         prenom: yup.string().trim().required("Le prénom est obligatoire"),
         nom: yup.string().trim().required("Le nom est obligatoire"),
         email: yup
             .string()
             .email("Adresse email invalide")
             .required("L'adresse email est obligatoire"),
+        motDePasse: estCreation
+            ? yup
+                .string()
+                .min(5, "Le mot de passe doit contenir au moins 5 caractères")
+                .max(72, "Le mot de passe ne doit pas dépasser 72 caractères")
+                .required("Le mot de passe est obligatoire")
+            : yup.string().notRequired(),
         telephone: yup.string().max(30, "30 caractères maximum"),
         matiereId: yup
             .number()
@@ -83,178 +43,192 @@ const schemas = {
             .array()
             .min(1, "Sélectionnez au moins une classe")
             .required("Sélectionnez au moins une classe"),
-    }),
-    parents: yup.object({
-        prenom: yup.string().trim().required("Le prénom est obligatoire"),
-        nom: yup.string().trim().required("Le nom est obligatoire"),
-        email: yup
-            .string()
-            .email("Adresse email invalide")
-            .required("L'adresse email est obligatoire"),
-        telephone: yup.string().max(30, "30 caractères maximum"),
-    }),
-    classes: yup.object({
-        nom: yup.string().trim().required("Le nom est obligatoire"),
-        niveau: yup.string().trim().required("Le niveau est obligatoire"),
-    }),
-    matieres: yup.object({
-        nom: yup.string().trim().required("Le nom est obligatoire"),
-        coefficient: yup
-            .number()
-            .typeError("Le coefficient est obligatoire")
-            .integer("Le coefficient doit être un nombre entier")
-            .positive("Le coefficient doit être positif")
-            .required("Le coefficient est obligatoire"),
-    }),
-};
+    });
+}
 
-export default function FormulaireEnseignant({ type }) {
-    const config = configs[type];
+export default function FormulaireEnseignant() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [matieres, setMatieres] = useState([]);
     const [classes, setClasses] = useState([]);
-    const [message, setMessage] = useState("");
-    const navigate = useNavigate();
+    const [erreur, setErreur] = useState("");
     const {
         register,
         handleSubmit,
         reset,
         formState: { errors, isSubmitting },
     } = useForm({
-        resolver: yupResolver(schemas[type]),
-        defaultValues: config.defaults,
+        resolver: yupResolver(creerSchema(!id)),
+        defaultValues: valeursInitiales,
     });
 
     useEffect(() => {
-        preparer();
-    }, [type, id]);
+        preparerFormulaire();
+    }, [id]);
 
-    async function preparer() {
-        setMessage("");
+    async function preparerFormulaire() {
+        setErreur("");
         try {
-            if (type === "enseignants") {
-                const reponses = await Promise.all([
-                    matieresApi.getAll({ size: 1000 }),
-                    classesApi.getAll({ size: 1000 }),
-                ]);
-                setMatieres(reponses[0].data.content);
-                setClasses(reponses[1].data.content);
-            }
+            const reponses = await Promise.all([
+                matieresApi.getAll({ size: 1000 }),
+                classesApi.getAll({ size: 1000 }),
+            ]);
+            const matieresDisponibles = reponses[0].data.content;
+            setMatieres(matieresDisponibles);
+            setClasses(reponses[1].data.content);
 
             if (id) {
-                const serviceAPI = obtenirServiceAPI(type);
-                if (type === "enseignants") {
-                    const reponses = await Promise.all([
-                        serviceAPI.getById(id),
-                        enseignantsApi.getClasses(id, { size: 1000 }),
-                    ]);
-                    reset({...reponses[0].data,
-                        classeIds: reponses[1].data.content.map((lien) =>
-                            String(lien.classeId)),
-                    });
-                } else {
-                    const reponse = await serviceAPI.getById(id);
-                    reset(reponse.data);
-                }
+                const donnees = await Promise.all([
+                    enseignantsApi.getById(id),
+                    enseignantsApi.getClasses(id, { size: 1000 }),
+                ]);
+                reset({
+                    ...donnees[0].data,
+                    classeIds: donnees[1].data.content.map((affectation) =>
+                        String(affectation.classeId),
+                    ),
+                });
             } else {
-                reset(config.defaults);
+                reset({
+                    ...valeursInitiales,
+                    matiereId: matieresDisponibles[0]?.id || "",
+                });
             }
-        } catch (error) {
-            setMessage("Impossible de charger les informations ");
+        } catch (exception) {
+            setErreur(obtenirMessageErreur(exception));
         }
     }
 
     async function enregistrer(valeurs) {
-        setMessage("");
+        setErreur("");
+        const donnees = {
+            prenom: valeurs.prenom,
+            nom: valeurs.nom,
+            email: valeurs.email,
+            telephone: valeurs.telephone,
+            matiereId: valeurs.matiereId,
+            actif: valeurs.actif,
+        };
+
+        if (!id) {
+            donnees.motDePasse = valeurs.motDePasse;
+        }
+
         try {
-            const { classeIds = [], ...donnees } = valeurs;
-            let identifiant = id;
+            let enseignantId = id;
             if (id) {
-                const serviceAPI = obtenirServiceAPI(type);
-                await serviceAPI.update(id, donnees);
+                await enseignantsApi.update(id, donnees);
             } else {
-                const serviceAPI = obtenirServiceAPI(type);
-                const reponse = await serviceAPI.create(donnees);
-                identifiant = reponse.data.id;
+                const reponse = await enseignantsApi.create(donnees);
+                enseignantId = reponse.data.id;
             }
-            if (type === "enseignants") {
-                await enseignantsApi.updateClasses(identifiant, classeIds.map(Number));
-            }
-            navigate("/" + type);
-        } catch (error) {
-            setMessage("Impossible d'enregistrer les informations ");
+
+            await enseignantsApi.updateClasses(
+                enseignantId,
+                valeurs.classeIds.map(Number),
+            );
+            navigate("/enseignants");
+        } catch (exception) {
+            setErreur(obtenirMessageErreur(exception));
         }
     }
 
     return (
         <div>
             <header className="page-header">
-                <h1>{id ? config.modification : config.ajout}</h1>
+                <h1>{id ? "Modifier un enseignant" : "Ajouter un enseignant"}</h1>
             </header>
+
+            {erreur && <p className="notice">{erreur}</p>}
+
             <form
                 className="card card-body form-card"
                 onSubmit={handleSubmit(enregistrer)}
                 noValidate
             >
-                {message && <p className="badge red">{message}</p>}
                 <div className="form-grid">
-                    {config.fields.map(([name, label, inputType]) => (
-                        <div className="form-group" key={name}>
-                            <label>{label}</label>
-                            {inputType === "select-matiere" ? (
-                                <select
-                                    className="field"
-                                    {...register(name, { valueAsNumber: true })}
-                                >
-                                    {matieres.map((matiere) => (
-                                        <option key={matiere.id} value={matiere.id}>
-                                            {matiere.nom}
-                                        </option>
-                                    ))}
-                                </select>
-                            ) : (
-                                <input
-                                    className="field"
-                                    type={inputType || "text"}
-                                    {...register(name, {
-                                        valueAsNumber: inputType === "number",
-                                    })}
-                                />
-                            )}
-                            {errors[name] && (
-                                <small className="error-text">{errors[name].message}</small>
-                            )}
-                        </div>
-                    ))}
-                    {type === "enseignants" && (
-                        <div className="form-group" style={{ gridColumn: "1/-1" }}>
-                            <label>Classes enseignées</label>
-                            <div className="checkbox-list">
-                                {classes.map((classe) => (
-                                    <label className="checkbox-item" key={classe.id}>
-                                        <input
-                                            type="checkbox"
-                                            value={classe.id}
-                                            {...register("classeIds")}
-                                        />
-                                        <span>{classe.nom}</span>
-                                    </label>
-                                ))}
-                            </div>
-                            {errors.classeIds && (
-                                <small className="error-text">{errors.classeIds.message}</small>
-                            )}
-                        </div>
+                    <Champ
+                        nom="prenom"
+                        label="Prénom"
+                        register={register}
+                        erreur={errors.prenom}
+                    />
+                    <Champ
+                        nom="nom"
+                        label="Nom"
+                        register={register}
+                        erreur={errors.nom}
+                    />
+                    <Champ
+                        nom="email"
+                        label="Email"
+                        type="email"
+                        register={register}
+                        erreur={errors.email}
+                    />
+                    {!id && (
+                        <Champ
+                            nom="motDePasse"
+                            label="Mot de passe"
+                            type="password"
+                            register={register}
+                            erreur={errors.motDePasse}
+                        />
                     )}
+                    <Champ
+                        nom="telephone"
+                        label="Téléphone"
+                        register={register}
+                        erreur={errors.telephone}
+                    />
+
+                    <div className="form-group">
+                        <label>Matière</label>
+                        <select
+                            className="field"
+                            {...register("matiereId", { valueAsNumber: true })}
+                        >
+                            <option value="">Sélectionner une matière</option>
+                            {matieres.map((matiere) => (
+                                <option key={matiere.id} value={matiere.id}>
+                                    {matiere.nom}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.matiereId && (
+                            <small className="error-text">{errors.matiereId.message}</small>
+                        )}
+                    </div>
+
+                    <div className="form-group" style={{ gridColumn: "1 / -1" }}>
+                        <label>Classes enseignées</label>
+                        <div className="checkbox-list">
+                            {classes.map((classe) => (
+                                <label className="checkbox-item" key={classe.id}>
+                                    <input
+                                        type="checkbox"
+                                        value={classe.id}
+                                        {...register("classeIds")}
+                                    />
+                                    <span>{classe.nom}</span>
+                                </label>
+                            ))}
+                        </div>
+                        {errors.classeIds && (
+                            <small className="error-text">{errors.classeIds.message}</small>
+                        )}
+                    </div>
                 </div>
+
                 <div className="form-actions">
                     <button
                         type="button"
                         className="button secondary"
-                        onClick={() => navigate("/" + type)}
-                    >Annuler
+                        onClick={() => navigate("/enseignants")}
+                    >
+                        Annuler
                     </button>
-                    <button className="button" disabled={isSubmitting}>
+                    <button type="submit" className="button" disabled={isSubmitting}>
                         {isSubmitting ? "Enregistrement..." : "Enregistrer"}
                     </button>
                 </div>
@@ -263,9 +237,17 @@ export default function FormulaireEnseignant({ type }) {
     );
 }
 
-function obtenirServiceAPI(type) {
-    if (type === "enseignants") return enseignantsApi;
-    if (type === "parents") return parentsApi;
-    if (type === "classes") return classesApi;
-    return matieresA;
+function Champ({ nom, label, type = "text", register, erreur }) {
+    return (
+        <div className="form-group">
+            <label>{label}</label>
+            <input
+                className="field"
+                type={type}
+                autoComplete={type === "password" ? "new-password" : undefined}
+                {...register(nom)}
+            />
+            {erreur && <small className="error-text">{erreur.message}</small>}
+        </div>
+    );
 }

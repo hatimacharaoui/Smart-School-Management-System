@@ -8,7 +8,11 @@ public interface EleveService {
 
     Page<EleveDto> chercherParParent(Long parentId, Pageable pageable);
 
-    Page<EleveDto> afficher(Pageable pagination);
+    Page<EleveDto> afficher(String recherche, Pageable pagination);
+
+    Page<EleveDto> chercherParClasse(Long classeId, String recherche, Pageable pagination);
+
+    EleveDto chercherParId(Long id);
 
     EleveDto creer(EleveDto dto);
 

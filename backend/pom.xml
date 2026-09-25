@@ -26,10 +26,21 @@
 
 		<mapstruct.version>1.6.3</mapstruct.version>
 
+		<springdoc.version>2.6.0</springdoc.version>
+
+		<lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
+		<sonar.projectKey>smart-school-management-system</sonar.projectKey>
+		<sonar.projectName>Smart School Management System</sonar.projectName>
 		<jjwt.version>0.13.0</jjwt.version>
 	</properties>
 
 	<dependencies>
+		<!-- swagger -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${springdoc.version}</version>
+		</dependency>
 
 		<!-- Spring Web -->
 		<dependency>
@@ -145,6 +156,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 
 				<configuration>
+					<parameters>true</parameters>
 
 					<annotationProcessorPaths>
 

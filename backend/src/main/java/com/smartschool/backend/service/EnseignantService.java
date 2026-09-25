@@ -6,5 +6,13 @@ import org.springframework.data.domain.Pageable;
 
 public interface EnseignantService {
 
-    Page<EnseignantDto> afficherEnseignants(Pageable pageable);
+    Page<EnseignantDto> afficherEnseignants(String recherche, Pageable pageable);
+
+    EnseignantDto chercherParId(Long id);
+
+    EnseignantDto enregistrer(EnseignantDto dto);
+
+    EnseignantDto modifier(Long id, EnseignantDto dto);
+
+    void supprimer(Long id);
 }
