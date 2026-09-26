@@ -21,10 +21,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ParentServiceImpl implements ParentService {
     private final ParentRepository parentRepository;
-    private final EleveRepository eleveRepository;
-    private final PaiementRepository paiementRepository;
     private final PasswordEncoder passwordEncoder;
-    private final Mappers Mappers;
     private final Mappers mappers;
 
     @Override
@@ -42,7 +39,7 @@ public class ParentServiceImpl implements ParentService {
     @Override
     @Cacheable(value = "parents", key = "'id-' + #id")
     public ParentDto chercherParId(Long id) {
-        return mappers.toDto(obtenir(id));
+        return mappers.toDto(findById(id));
     }
 
     @Override
@@ -68,7 +65,7 @@ public class ParentServiceImpl implements ParentService {
             @CacheEvict(value = "utilisateurs", allEntries = true)
     })
     public ParentDto modifier(Long id, ParentDto dto) {
-        Parent parent = obtenir(id);
+        Parent parent = findById(id);
         mappers.update(dto, parent);
         parent.setNomComplet(dto.getPrenom() + " " + dto.getNom());
         return mappers.toDto(parentRepository.save(parent));
@@ -80,18 +77,12 @@ public class ParentServiceImpl implements ParentService {
             @CacheEvict(value = "utilisateurs", allEntries = true)
     })
     public void supprimer(Long id) {
-        Parent parent = obtenir(id);
-        boolean utilise = eleveRepository.existsByParentId(id)
-                || paiementRepository.existsByParentId(id);
-        if (utilise) {
-            throw new IllegalArgumentException(
-                    "Impossible de supprimer ce parent car il est lié à un élève ou un paiement."
-            );
-        }
+        Parent parent = findById(id);
+
         parentRepository.delete(parent);
     }
 
-    private Parent obtenir(Long id) {
+    private Parent findById(Long id) {
         return parentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Parent introuvable"));
     }

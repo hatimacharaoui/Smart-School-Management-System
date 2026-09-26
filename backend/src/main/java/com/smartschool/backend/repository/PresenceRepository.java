@@ -18,5 +18,11 @@ public interface PresenceRepository extends JpaRepository<Presence, Long> {
 
     Page<Presence> findByStatutIn(List<StatutPresence> statuts, Pageable pagination);
 
+    Page<Presence> findByClasseIdAndDate(Long classeId, LocalDate date, Pageable pagination);
 
+    Optional<Presence> findByEleveIdAndDateAndMatiereId(Long eleveId, LocalDate date, Long matiereId);
+
+    boolean existsByEnseignantId(Long enseignantId);
+    boolean existsByClasseId(Long classeId);
+    boolean existsByMatiereId(Long matiereId);
 }
