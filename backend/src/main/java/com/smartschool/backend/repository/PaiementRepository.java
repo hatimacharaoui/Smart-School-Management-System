@@ -13,7 +13,6 @@ import java.util.List;
 
 public interface PaiementRepository extends JpaRepository<Paiement, Long> {
 
-
     @Query("""
             SELECT p FROM Paiement p
             WHERE (:eleveId IS NULL OR p.eleveId = :eleveId)
@@ -24,4 +23,11 @@ public interface PaiementRepository extends JpaRepository<Paiement, Long> {
     Page<Paiement> rechercher(@Param("eleveId") Long eleveId, @Param("statut") StatutPaiement statut,
             @Param("dateDebut") LocalDate dateDebut, @Param("dateFin") LocalDate dateFin, Pageable pagination
     );
+
+    boolean existsByParentId(Long parentId);
+
+    boolean existsByEleveIdAndDateBetween(Long eleveId, LocalDate dateDebut, LocalDate dateFin);
+
+    List<Paiement> findByEleveIdInAndDateBetween(List<Long> eleveIds, LocalDate dateDebut, LocalDate dateFin);
+
 }

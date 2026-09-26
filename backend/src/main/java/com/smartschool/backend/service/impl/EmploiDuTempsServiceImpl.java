@@ -8,6 +8,7 @@ import com.smartschool.backend.repository.EleveRepository;
 import com.smartschool.backend.repository.HoraireEmploiDuTempRepository;
 import com.smartschool.backend.service.EmploiDuTempsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,6 @@ import org.springframework.stereotype.Service;
 public class EmploiDuTempsServiceImpl implements EmploiDuTempsService {
     private final HoraireEmploiDuTempRepository horaireEmploiDuTempRepository;
     private final Mappers mappers;
-    private final EleveRepository eleveRepository;
-    private final ClasseEnseignantRepository classeEnseignantRepository;
 
 
 
@@ -28,25 +27,37 @@ public class EmploiDuTempsServiceImpl implements EmploiDuTempsService {
                 .map(mappers::toDto);
     }
 
-    public HoraireEmploiDuTempDto creer(HoraireEmploiDuTempDto dto) {
+
+
+    public Page<HoraireEmploiDuTempDto> chercherParJour(String jour, Pageable pagination) {
+        return horaireEmploiDuTempRepository.rechercher(jour, null, null, pagination)
+                .map(mappers::toDto);
+    }
+
+    public Page<HoraireEmploiDuTempDto> chercherParEnseignant(
+            Long enseignantId,
+            Pageable pagination
+    ) {
+        return horaireEmploiDuTempRepository.rechercher(null, null, enseignantId, pagination)
+                .map(mappers::toDto);
+    }
+
+    public Page<HoraireEmploiDuTempDto> chercherParClasse(Long classeId, Pageable pagination) {
+        return horaireEmploiDuTempRepository.rechercher(null, classeId, null, pagination)
+                .map(mappers::toDto);
+    }
+
+    @CacheEvict(value = "horaires", allEntries = true)
+    public HoraireEmploiDuTempDto enregistrer(HoraireEmploiDuTempDto dto) {
         HoraireEmploiDuTemp horaire = mappers.toEntite(dto);
-
         return mappers.toDto(horaireEmploiDuTempRepository.save(horaire));
     }
 
-    public HoraireEmploiDuTempDto modifier(Long id, HoraireEmploiDuTempDto dto) {
-        HoraireEmploiDuTemp horaire = findById(id);
-        mappers.update(dto, horaire);
-        return mappers.toDto(horaireEmploiDuTempRepository.save(horaire));
-    }
-
-    public void supprimer(Long id) {
-        HoraireEmploiDuTemp horaire = findById(id);
-        horaireEmploiDuTempRepository.delete(horaire);
-    }
-
-    private HoraireEmploiDuTemp findById(Long id) {
-        return horaireEmploiDuTempRepository.findById(id)
+    @CacheEvict(value = "horaires", allEntries = true)
+    public HoraireEmploiDuTempDto modifier(Long id, HoraireEmploiDuTempDto donnees) {
+        HoraireEmploiDuTemp horaire = horaireEmploiDuTempRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Horaire introuvable"));
+        mappers.update(donnees, horaire);
+        return mappers.toDto(horaireEmploiDuTempRepository.save(horaire));
     }
 }

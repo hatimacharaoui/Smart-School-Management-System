@@ -35,8 +35,9 @@ public class DevoirController {
 
     @GetMapping("/enseignant/{id}")
     public ResponseEntity<Page<DevoirDto>> chercherParEnseignant(
-            @PathVariable Long id, @RequestParam(required = false)StatutDevoir statut, Pageable pagination) {
-        return ResponseEntity.ok(devoirService.chercherParEnseignant(id, statut, pagination));
+            @PathVariable Long id, @RequestParam(required = false) String recherche,
+             @RequestParam(required = false)StatutDevoir statut, Pageable pagination) {
+        return ResponseEntity.ok(devoirService.chercherParEnseignant(id, recherche, statut, pagination));
     }
 
 

@@ -33,6 +33,9 @@ public interface HoraireEmploiDuTempRepository extends JpaRepository<HoraireEmpl
             @Param("enseignantId") Long enseignantId, Pageable pageable);
 
 
+    boolean existsByEnseignantId(Long enseignantId);
+    boolean existsByClasseId(Long classeId);
+    boolean existsByMatiereId(Long matiereId);
 
 
 }

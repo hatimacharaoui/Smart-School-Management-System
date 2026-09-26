@@ -13,9 +13,9 @@ public interface DevoirService {
 
     DevoirDto chercherParId(Long id);
 
-    DevoirDto creer(DevoirDto devoirDto);
+    DevoirDto creer(DevoirDto dto);
 
-    DevoirDto modifier(Long id, DevoirDto devoirDto);
+    DevoirDto modifier(Long id, DevoirDto dto);
 
     void supprimer(Long id);
 

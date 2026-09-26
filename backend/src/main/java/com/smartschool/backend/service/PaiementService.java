@@ -11,11 +11,10 @@ public interface PaiementService {
 
     Page<PaiementDto> chercherParEleve(Long eleveId, StatutPaiement statut,  LocalDate dateDebut, LocalDate dateFin, Pageable pagination);
 
-    Page<PaiementDto> afficher(Pageable pagination);
+    Page<PaiementDto> afficher( StatutPaiement statut, LocalDate dateDebut, LocalDate dateFin,Pageable pagination);
 
     PaiementDto creer(PaiementDto dto);
 
     PaiementDto modifier(Long id, PaiementDto dto);
 
-    void supprimer(Long id);
 }
