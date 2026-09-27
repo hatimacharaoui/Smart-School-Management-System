@@ -3,7 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import {classesApi} from "../../services/api/classesApi.js";
 import {elevesApi} from "../../services/api/elevesApi.js";
 
-export default function VoirEleveEnseignant() {
+
+export default function FicheEleveEnseignant() {
     const { id } = useParams();
     const [eleve, setEleve] = useState(null);
     const [classes, setClasses] = useState([]);
@@ -22,7 +23,6 @@ export default function VoirEleveEnseignant() {
             ]);
             setEleve(reponses[0].data);
             setClasses(reponses[1].data.content);
-
         } catch (exception) {
             setErreur("Impossible de charger l’élève.");
         }
@@ -37,16 +37,19 @@ export default function VoirEleveEnseignant() {
             {eleve && (
                 <div className="card card-body form-card">
                     <div className="form-grid">
-                        <Champ label="N élève" valeur={eleve.matricule} />
+                        <Champ label="N° élève" valeur={eleve.matricule} />
                         <Champ label="Prénom" valeur={eleve.prenom} />
                         <Champ label="Nom" valeur={eleve.nom} />
                         <Champ label="Email" valeur={eleve.email} />
                         <Champ label="Téléphone" valeur={eleve.telephone} />
                         <Champ label="Date de naissance" valeur={eleve.dateNaissance} />
                         <Champ label="Adresse" valeur={eleve.adresse} />
-                        <Champ label="Classe" valeur={
+                        <Champ
+                            label="Classe"
+                            valeur={
                                 classes.find((classe) => classe.id === eleve.classeId)?.nom ||
-                                eleve.classeId } />
+                                eleve.classeId}
+                        />
                     </div>
                     <div className="form-actions">
                         <Link className="button secondary" to="/eleves">Retour</Link>

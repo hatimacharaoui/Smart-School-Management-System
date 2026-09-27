@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination";
+import { useAuth } from "../../context/AuthContext";
+import usePagination, {PageVide,} from "../../hooks/usePagination";
+import {enseignantsApi} from "../../services/api/enseignantsApi.js";
 import {classesApi} from "../../services/api/classesApi.js";
 import {elevesApi} from "../../services/api/elevesApi.js";
-import { useAuth } from "../../context/AuthContext";
-import usePagination, {
-    PageVide,
-} from "../../hooks/usePagination.js";
-import {enseignantsApi} from "../../services/api/enseignantsApi.js";
 
 export default function ElevesEnseignant() {
     const { user } = useAuth();
@@ -16,15 +14,17 @@ export default function ElevesEnseignant() {
     const [classes, setClasses] = useState([]);
     const [classeId, setClasseId] = useState("");
     const [erreur, setErreur] = useState("");
-    const pagination = usePagination( pageEleves, 10, recherche + "-" + classeId );
+    const pagination = usePagination(
+        pageEleves,
+        10,
+        recherche + "-" + classeId,
+    );
 
     useEffect(() => {
-
         chargerClasses();
     }, [user.id]);
 
     useEffect(() => {
-
         if (classeId) chargerEleves();
     }, [recherche, classeId, pagination.numeroPage, pagination.taillePage]);
 
@@ -41,9 +41,8 @@ export default function ElevesEnseignant() {
             );
             setClasses(classesEnseignant);
             setClasseId(classesEnseignant[0]?.id || "");
-
         } catch (exception) {
-            setErreur("Impossible de charger les classes");
+            setErreur("Impossible de charger les classes ");
         }
     }
 
@@ -55,18 +54,19 @@ export default function ElevesEnseignant() {
             });
             setPageEleves(reponse.data);
         } catch (exception) {
-            setErreur("Impossible de charger les élèves.");
+            setErreur("Impossible de charger les élèves ");
         }
     }
 
     return (
         <div>
             <header className="page-header">
-                <h1>Elèves</h1>
+                <h1>Élèves de mes classes</h1>
             </header>
             {erreur && <p className="notice">{erreur}</p>}
             <div className="filters">
-                <select className="field search" value={classeId}
+                <select
+                    className="field search" value={classeId}
                     onChange={(event) => setClasseId(event.target.value)}
                 >
                     {classes.map((classe) => (
@@ -75,10 +75,11 @@ export default function ElevesEnseignant() {
                         </option>
                     ))}
                 </select>
-
-                <input className="field search" value={recherche}
+                <input
+                    className="field search" value={recherche}
                     onChange={(event) => setRecherche(event.target.value)}
-                    placeholder="Rechercher un élève..." />
+                    placeholder="Rechercher un élève"
+                />
             </div>
             <div className="card table-wrap">
                 <table>
@@ -97,19 +98,17 @@ export default function ElevesEnseignant() {
                             <td>{eleve.matricule}</td>
                             <td>{eleve.prenom + " " + eleve.nom}</td>
                             <td>{eleve.email}</td>
-                            <td>
-                                {classes.find((classe) => String(classe.id) === String(eleve.classeId))?.nom || eleve.classeId}
-                            </td>
+                            <td>{nomClasse(classes, eleve.classeId)}</td>
                             <td className="actions">
-                                <Link className="button secondary small" to={"/eleves/" + eleve.id} >
-                                    Voir
-                                </Link>
+                                <Link
+                                    className="button secondary small" to={"/eleves/" + eleve.id}
+                                >Voir</Link>
                             </td>
                         </tr>
                     ))}
                     {pagination.totalElements === 0 && (
                         <tr>
-                            <td colSpan="5" className="empty">Aucun élève trouvé</td>
+                            <td>Aucun élève trouvé</td>
                         </tr>
                     )}
                     </tbody>
@@ -118,4 +117,8 @@ export default function ElevesEnseignant() {
             </div>
         </div>
     );
+}
+
+function nomClasse(classes, id) {
+    return classes.find((classe) => String(classe.id) === String(id))?.nom || id;
 }
