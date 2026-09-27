@@ -24,19 +24,32 @@ import PaiementsAdministrateur from "./pages/administrateur/PaiementsAdministrat
 import EmploiDuTempsAdministrateur from "./pages/administrateur/EmploiDuTempsAdministrateur.jsx";
 import DevoirsAdministrateur from "./pages/administrateur/DevoirsAdministrateur.jsx";
 import NotificationsAdministrateur from "./pages/administrateur/NotificationsAdministrateur.jsx";
+import TableauDeBordEnseignant from "./pages/enseignant/TableauDeBordEnseignant.jsx";
+import ElevesEnseignant from "./pages/enseignant/ElevesEnseignant.jsx";
+import FicheEleveEnseignant from "./pages/enseignant/VoirEleveEnseignant.jsx";
+import NotesEnseignant from "./pages/enseignant/NotesEnseignant.jsx";
+import FormulaireNotes from "./pages/enseignant/FormulaireNotes.jsx";
+import PresencesEnseignant from "./pages/enseignant/PresencesEnseignant.jsx";
+import FormulairePresences from "./pages/enseignant/FormulairePresences.jsx";
+import DevoirsEnseignant from "./pages/enseignant/DevoirsEnseignant.jsx";
+import FormulaireDevoir from "./pages/enseignant/FormulaireDevoir.jsx";
+import EmploiDuTempsEnseignant from "./pages/enseignant/EmploiDuTempsEnseignant.jsx";
+import NotificationsEnseignant from "./pages/enseignant/NotificationsEnseignant.jsx";
+import ProfilEnseignant from "./pages/enseignant/ProfilEnseignant.jsx";
 
 
 function App() {
 
     return (
         <>
+            <AlerteApi />
             <Routes>
-                <Route path="/" element={<Accueil/>}/>
-                <Route path="/connexion" element={<Connexion/>}/>
+                <Route path="/" element={<Accueil />} />
+                <Route path="/connexion" element={<Connexion />} />
                 <Route
                     element={
                         <ProtectedRoute>
-                            <Layout/>
+                            <Layout />
                         </ProtectedRoute>
                     }
                 >
@@ -45,6 +58,7 @@ function App() {
                         element={
                             <PageParRole
                                 administrateur={TableauDeBordAdministrateur}
+                                enseignant={TableauDeBordEnseignant}
                             />
                         }
                     />
@@ -53,58 +67,60 @@ function App() {
                         element={
                             <PageParRole
                                 administrateur={ElevesAdministrateur}
+                                enseignant={ElevesEnseignant}
                             />
                         }
                     />
                     <Route
                         path="/eleves/add"
-                        element={<PageParRole administrateur={FormulaireEleve}/>}
+                        element={<PageParRole administrateur={FormulaireEleve} />}
                     />
                     <Route
                         path="/eleves/:id"
                         element={
                             <PageParRole
                                 administrateur={FicheEleveAdministrateur}
+                                enseignant={FicheEleveEnseignant}
                             />
                         }
                     />
                     <Route
                         path="/eleves/:id/edit"
-                        element={<PageParRole administrateur={FormulaireEleve}/>}
+                        element={<PageParRole administrateur={FormulaireEleve} />}
                     />
                     <Route
                         path="/enseignants"
-                        element={<PageParRole administrateur={EnseignantsAdministrateur}/>}
+                        element={<PageParRole administrateur={EnseignantsAdministrateur} />}
                     />
                     <Route
                         path="/enseignants/add"
-                        element={<PageParRole administrateur={FormulaireEnseignant}/>}
+                        element={<PageParRole administrateur={FormulaireEnseignant} />}
                     />
                     <Route
                         path="/enseignants/:id/edit"
-                        element={<PageParRole administrateur={FormulaireEnseignant}/>}
+                        element={<PageParRole administrateur={FormulaireEnseignant} />}
                     />
                     <Route
                         path="/parents"
-                        element={<PageParRole administrateur={ParentsAdministrateur}/>}
+                        element={<PageParRole administrateur={ParentsAdministrateur} />}
                     />
                     <Route
                         path="/parents/add"
-                        element={<PageParRole administrateur={FormulaireParent}/>}
+                        element={<PageParRole administrateur={FormulaireParent} />}
                     />
                     <Route
                         path="/parents/:id/edit"
-                        element={<PageParRole administrateur={FormulaireParent}/>}
+                        element={<PageParRole administrateur={FormulaireParent} />}
                     />
                     <Route
                         path="/classes"
-                        element={<PageParRole administrateur={ClassesAdministrateur}/>}
+                        element={<PageParRole administrateur={ClassesAdministrateur} />}
                     />
                     <Route
                         path="/classes/add"
                         element={
                             <PageParRole
-                                administrateur={() => <FormulaireRessource type="classes"/>}
+                                administrateur={() => <FormulaireRessource type="classes" />}
                             />
                         }
                     />
@@ -112,7 +128,7 @@ function App() {
                         path="/classes/:id/edit"
                         element={
                             <PageParRole
-                                administrateur={() => <FormulaireRessource type="classes"/>}
+                                administrateur={() => <FormulaireRessource type="classes" />}
                             />
                         }
                     />
@@ -128,7 +144,7 @@ function App() {
                         path="/matieres/add"
                         element={
                             <PageParRole
-                                administrateur={() => <FormulaireRessource type="matieres"/>}
+                                administrateur={() => <FormulaireRessource type="matieres" />}
                             />
                         }
                     />
@@ -136,7 +152,7 @@ function App() {
                         path="/matieres/:id/edit"
                         element={
                             <PageParRole
-                                administrateur={() => <FormulaireRessource type="matieres"/>}
+                                administrateur={() => <FormulaireRessource type="matieres" />}
                             />
                         }
                     />
@@ -145,38 +161,50 @@ function App() {
                         element={
                             <PageParRole
                                 administrateur={NotesAdministrateur}
+                                enseignant={NotesEnseignant}
                             />
                         }
+                    />
+                    <Route
+                        path="/notes/add"
+                        element={<PageParRole enseignant={FormulaireNotes} />}
                     />
                     <Route
                         path="/presences"
                         element={
                             <PageParRole
                                 administrateur={PresencesAdministrateur}
+                                enseignant={PresencesEnseignant}
                             />
                         }
+                    />
+                    <Route
+                        path="/presences/enregistrer"
+                        element={<PageParRole enseignant={FormulairePresences} />}
                     />
                     <Route
                         path="/devoirs"
                         element={
                             <PageParRole
                                 administrateur={DevoirsAdministrateur}
+                                enseignant={DevoirsEnseignant}
                             />
                         }
+                    />
+                    <Route
+                        path="/devoirs/add"
+                        element={<PageParRole enseignant={FormulaireDevoir} />}
+                    />
+                    <Route
+                        path="/devoirs/:id/edit"
+                        element={<PageParRole enseignant={FormulaireDevoir} />}
                     />
                     <Route
                         path="/emploi-du-temps"
                         element={
                             <PageParRole
                                 administrateur={EmploiDuTempsAdministrateur}
-                            />
-                        }
-                    />
-                    <Route
-                        path="/paiements"
-                        element={
-                            <PageParRole
-                                administrateur={PaiementsAdministrateur}
+                                enseignant={EmploiDuTempsEnseignant}
                             />
                         }
                     />
@@ -185,23 +213,25 @@ function App() {
                         element={
                             <PageParRole
                                 administrateur={NotificationsAdministrateur}
+                                enseignant={NotificationsEnseignant}
                             />
                         }
                     />
                     <Route
                         path="/notifications/add"
-                        element={<PageParRole administrateur={FormulaireNotification}/>}
+                        element={<PageParRole administrateur={FormulaireNotification} />}
                     />
                     <Route
                         path="/profil"
                         element={
                             <PageParRole
                                 administrateur={ProfilAdministrateur}
+                                enseignant={ProfilEnseignant}
                             />
                         }
                     />
                 </Route>
-                <Route path="*" element={<Navigate to="/"/>}/>
+                <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </>
     );
