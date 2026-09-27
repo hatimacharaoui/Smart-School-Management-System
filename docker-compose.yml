@@ -1,0 +1,81 @@
+services:
+
+  mysql:
+    image: mysql:8.4
+    container_name: smart-school-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: smart_school
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: smart-school-redis
+    ports:
+      - "6379:6379"
+
+  backend:
+    build: ./backend
+    container_name: smart-school-backend
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/smart_school?useSSL=false&serverTimezone=UTC
+      DB_USERNAME: root
+      DB_PASSWORD: root
+
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      CACHE_TYPE: redis
+
+      FRONTEND_URL: http://localhost:3000
+
+      JWT_SECRET: SmartSchoolJwtSecretKeyChangeThisValueInProduction2026
+
+      UPLOAD_DIR: /app/uploads/justificatifs
+
+    volumes:
+      - uploads-data:/app/uploads
+
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  frontend:
+    build: ./frontend
+    container_name: smart-school-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  sonarqube:
+    image: sonarqube:lts-community
+    container_name: smart-school-sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+    volumes:
+      - sonarqube-data:/opt/sonarqube/data
+      - sonarqube-logs:/opt/sonarqube/logs
+      - sonarqube-extensions:/opt/sonarqube/extensions
+
+
+volumes:
+  mysql-data:
+  uploads-data:
+  sonarqube-data:
+  sonarqube-logs:
+  sonarqube-extensions:

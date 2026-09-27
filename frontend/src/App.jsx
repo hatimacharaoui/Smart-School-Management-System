@@ -1,6 +1,5 @@
 import Accueil from "./pages/Accueil.jsx";
 import Connexion from "./pages/Connexion.jsx";
-import TableauDeBord from "./pages/TableauDeBord.jsx"
 import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Layout from "./components/Layout.jsx";
@@ -36,6 +35,7 @@ import FormulaireDevoir from "./pages/enseignant/FormulaireDevoir.jsx";
 import EmploiDuTempsEnseignant from "./pages/enseignant/EmploiDuTempsEnseignant.jsx";
 import NotificationsEnseignant from "./pages/enseignant/NotificationsEnseignant.jsx";
 import ProfilEnseignant from "./pages/enseignant/ProfilEnseignant.jsx";
+import AccueilEleve from "./pages/eleve/AccueilEleve.jsx";
 
 
 function App() {
@@ -59,6 +59,7 @@ function App() {
                             <PageParRole
                                 administrateur={TableauDeBordAdministrateur}
                                 enseignant={TableauDeBordEnseignant}
+                                eleve={AccueilEleve}
                             />
                         }
                     />
@@ -188,6 +189,7 @@ function App() {
                             <PageParRole
                                 administrateur={DevoirsAdministrateur}
                                 enseignant={DevoirsEnseignant}
+                                eleve={DevoirsEleve}
                             />
                         }
                     />
