@@ -3,6 +3,7 @@ package com.smartschool.backend.service.impl;
 import com.smartschool.backend.dto.NoteDto;
 import com.smartschool.backend.dto.NotesGroupeesDto;
 import com.smartschool.backend.entity.*;
+import com.smartschool.backend.exception.ResourceNotFoundException;
 import com.smartschool.backend.mapper.Mappers;
 import com.smartschool.backend.mapper.MappersImpl;
 import com.smartschool.backend.repository.DevoirRepository;
@@ -81,7 +82,7 @@ public class NoteServiceImpl implements NoteService {
     })
     public List<NoteDto> enregistrerTout(NotesGroupeesDto donnees) {
         Devoir devoir = devoirRepository.findById(donnees.getDevoirId())
-                .orElseThrow(() -> new RuntimeException("Devoir introuvable"));
+                .orElseThrow(() -> new ResourceNotFoundException("Devoir introuvable"));
 
         for (NoteDto ligne : donnees.getNotes()) {
             if (ligne.getValeur() < 0 || ligne.getValeur() > 20) {

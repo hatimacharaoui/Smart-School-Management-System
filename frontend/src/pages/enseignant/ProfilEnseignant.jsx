@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useAuth } from "../../context/AuthContext";
-import {usersAPI as usersApi} from "../../services/api/usersApi.js";
+import { usersApi } from "../../services/api/usersApi.js";
 import {obtenirMessageErreur} from "../../services/api/Api.js";
 
 const schema = yup.object({

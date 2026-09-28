@@ -3,6 +3,7 @@ package com.smartschool.backend.service.impl;
 import com.smartschool.backend.dto.ClasseScolaireDto;
 import com.smartschool.backend.dto.MatiereDto;
 import com.smartschool.backend.entity.Matiere;
+import com.smartschool.backend.exception.ResourceNotFoundException;
 import com.smartschool.backend.mapper.Mappers;
 import com.smartschool.backend.repository.MatiereRepository;
 import com.smartschool.backend.service.MatiereService;
@@ -59,7 +60,7 @@ public class MatiereServiceImpl implements MatiereService {
 
     private Matiere findById(Long id) {
         return matiereRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Matière introuvable"));
+                .orElseThrow(() -> new ResourceNotFoundException("Matière introuvable"));
     }
 
 }

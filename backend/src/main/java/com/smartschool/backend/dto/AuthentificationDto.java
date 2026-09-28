@@ -1,6 +1,7 @@
 package com.smartschool.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.smartschool.backend.entity.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -31,5 +32,6 @@ public class AuthentificationDto {
 
     private String token;
     private String telephone;
-    private String role;
+    private Role role;
+
 }

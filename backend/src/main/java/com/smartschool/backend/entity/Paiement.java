@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -20,7 +21,7 @@ public class Paiement {
     private Long parentId;
 
     @Column(nullable = false)
-    private double montant;
+    private BigDecimal montant;
 
     @Column(nullable = false)
     private String methode;

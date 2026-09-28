@@ -30,8 +30,8 @@ public class DevoirServiceImpl implements DevoirService {
                 .map(mappers::toDto);
     }
 
-    public Page<DevoirDto> afficher(String recherche, StatutDevoir statut, Pageable pagination) {
-        return devoirRepository.findAll(pagination).map(mappers::toDto);
+    public Page<DevoirDto> afficher(String recherche, StatutDevoir statut, Pageable pageable) {
+        return devoirRepository.rechercher(recherche, statut, null, null, pageable).map(mappers::toDto);
     }
 
     @Cacheable(value = "devoirs", key = "'id-' + #id")

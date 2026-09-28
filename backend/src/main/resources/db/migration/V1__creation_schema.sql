@@ -94,7 +94,7 @@ CREATE TABLE paiement (
                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
                           eleve_id BIGINT NOT NULL,
                           parent_id BIGINT NOT NULL,
-                          montant DOUBLE NOT NULL,
+                          montant DECIMAL(10, 2) NOT NULL,
                           methode VARCHAR(80) NOT NULL,
                           date DATE NOT NULL,
                           statut VARCHAR(30) NOT NULL,
@@ -122,20 +122,9 @@ CREATE TABLE notification (
                               entite_liee_id BIGINT
 );
 
-CREATE INDEX idx_eleve_classe
-    ON eleve(classe_id);
-
-CREATE INDEX idx_eleve_parent
-    ON eleve(parent_id);
-
-CREATE INDEX idx_devoir_classe
-    ON devoir(classe_id);
-
-CREATE INDEX idx_devoir_enseignant
-    ON devoir(enseignant_id);
-
-CREATE INDEX idx_presence_classe_date
-    ON presence(classe_id, date);
-
-CREATE INDEX idx_notification_destinataire
-    ON notification(destinataire_id, date_creation);
+CREATE INDEX idx_eleve_classe ON eleve(classe_id);
+CREATE INDEX idx_eleve_parent ON eleve(parent_id);
+CREATE INDEX idx_devoir_classe ON devoir(classe_id);
+CREATE INDEX idx_devoir_enseignant ON devoir(enseignant_id);
+CREATE INDEX idx_presence_classe_date ON presence(classe_id, date);
+CREATE INDEX idx_notification_destinataire ON notification(destinataire_id, date_creation);

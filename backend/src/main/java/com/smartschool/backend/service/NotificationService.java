@@ -14,5 +14,7 @@ public interface NotificationService {
 
     NotificationDto marquerCommeLue(Long id);
 
+    void notifierUtilisateur(Long destinataireId, String titre, String message, TypeNotification type, Long entiteLieeId);
+
     void notifierRole(Role role, String titre, String message, TypeNotification type, Long entiteLieeId);
 }

@@ -1,11 +1,10 @@
 package com.smartschool.backend.service.impl;
 
 import com.smartschool.backend.dto.PresenceDto;
-import com.smartschool.backend.entity.Presence;
-import com.smartschool.backend.entity.Role;
-import com.smartschool.backend.entity.StatutPresence;
-import com.smartschool.backend.entity.TypeNotification;
+import com.smartschool.backend.entity.*;
+import com.smartschool.backend.exception.ResourceNotFoundException;
 import com.smartschool.backend.mapper.Mappers;
+import com.smartschool.backend.repository.EleveRepository;
 import com.smartschool.backend.repository.PresenceRepository;
 import com.smartschool.backend.service.NotificationService;
 import com.smartschool.backend.service.PresenceService;
@@ -27,6 +26,7 @@ public class PresenceServiceImpl implements PresenceService {
 
     private final PresenceRepository presenceRepository;
     private final NotificationService notificationService;
+    private final EleveRepository eleveRepository;
     private final Mappers mappers;
 
 
@@ -71,10 +71,15 @@ public class PresenceServiceImpl implements PresenceService {
                     TypeNotification.PRESENCE,
                     presenceEnregistree.getId()
             );
-            notificationService.notifierRole(
-                    Role.PARENT,
+            Eleve eleve = eleveRepository
+                    .findById(presenceEnregistree.getEleveId())
+                    .orElseThrow(() ->
+                            new ResourceNotFoundException("Élève introuvable ")
+                    );
+            notificationService.notifierUtilisateur(
+                    eleve.getParentId(),
                     "Alerte de présence",
-                    "Votre enfant est absent ou en retard.",
+                    "Votre enfant est absent ou en retard ",
                     TypeNotification.PRESENCE,
                     presenceEnregistree.getId()
             );

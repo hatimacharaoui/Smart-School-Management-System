@@ -4,6 +4,7 @@ import com.smartschool.backend.dto.EleveDto;
 import com.smartschool.backend.entity.Eleve;
 import com.smartschool.backend.entity.Role;
 import com.smartschool.backend.entity.TypeNotification;
+import com.smartschool.backend.exception.ResourceNotFoundException;
 import com.smartschool.backend.mapper.Mappers;
 import com.smartschool.backend.repository.EleveRepository;
 import com.smartschool.backend.repository.UserRepository;
@@ -74,9 +75,15 @@ public class EleveServiceImpl implements EleveService {
 
 
     public EleveDto modifier(Long id, EleveDto dto) {
+
         Eleve eleve = findById(id);
         mapper.update(dto, eleve);
-        return mapper.toDto(eleveRepository.save(eleve));
+
+        eleve.setNomComplet(
+                eleve.getPrenom() + " " + eleve.getNom());
+
+        Eleve eleveModifie = eleveRepository.save(eleve);
+        return mapper.toDto(eleveModifie);
     }
 
 
@@ -87,6 +94,6 @@ public class EleveServiceImpl implements EleveService {
 
     private Eleve findById(Long id) {
         return eleveRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Eleve introuvable"));
+                .orElseThrow(() -> new ResourceNotFoundException("Eleve introuvable"));
     }
 }

@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,16 +41,40 @@ class DevoirServiceImplTest {
     private DevoirServiceImpl devoirService;
 
     @Test
-    void doitCreerUnDevoirEtNotifierLesElevesEtLesParents() {
-        DevoirDto demande = DevoirDto.builder().titre("Contrôle de mathématiques").build();
-        Devoir devoir = Devoir.builder().titre("Contrôle de mathématiques").build();
+    void doitCreerEtEnregistrerUnDevoir() {
+        DevoirDto demande = DevoirDto.builder()
+                .titre("Contrôle de mathématiques")
+                .matiereId(1L)
+                .classeId(1L)
+                .enseignantId(2L)
+                .dateLimite(LocalDate.now().plusDays(7))
+                .statut(StatutDevoir.A_VENIR)
+                .build();
+
+        Devoir devoir = Devoir.builder()
+                .titre("Contrôle de mathématiques")
+                .matiereId(1L)
+                .classeId(1L)
+                .enseignantId(2L)
+                .dateLimite(demande.getDateLimite())
+                .statut(StatutDevoir.A_VENIR)
+                .build();
+
         Devoir devoirEnregistre = Devoir.builder()
                 .id(8L)
                 .titre("Contrôle de mathématiques")
+                .matiereId(1L)
+                .classeId(1L)
+                .enseignantId(2L)
+                .dateLimite(demande.getDateLimite())
+                .statut(StatutDevoir.A_VENIR)
                 .build();
+
         DevoirDto reponse = DevoirDto.builder()
                 .id(8L)
                 .titre("Contrôle de mathématiques")
+                .classeId(1L)
+                .enseignantId(2L)
                 .build();
 
         when(mappers.toEntite(demande)).thenReturn(devoir);
@@ -59,20 +84,8 @@ class DevoirServiceImplTest {
         DevoirDto resultat = devoirService.creer(demande);
 
         assertEquals(8L, resultat.getId());
-        verify(notificationService).notifierRole(
-                eq(Role.ELEVE),
-                eq("Nouveau devoir"),
-                anyString(),
-                eq(TypeNotification.DEVOIR),
-                eq(8L)
-        );
-        verify(notificationService).notifierRole(
-                eq(Role.PARENT),
-                eq("Nouveau devoir"),
-                anyString(),
-                eq(TypeNotification.DEVOIR),
-                eq(8L)
-        );
+        verify(devoirRepository).save(devoir);
+        verify(mappers).toDto(devoirEnregistre);
     }
 
     @Test

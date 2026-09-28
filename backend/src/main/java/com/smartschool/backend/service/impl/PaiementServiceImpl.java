@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class PaiementServiceImpl implements PaiementService {
-    private static final double MONTANT_MENSUEL_PAR_DEFAUT = 1500;
+    private static final BigDecimal MONTANT_MENSUEL_PAR_DEFAUT = new BigDecimal("1500.00");
     private static final String METHODE_PAR_DEFAUT = "Espèces";
 
     private final PaiementRepository paiementRepository;
@@ -160,8 +161,12 @@ public class PaiementServiceImpl implements PaiementService {
     }
 
     private void verifierMontantEtMethode(PaiementDto dto) {
-        if (dto.getMontant() <= 0) {
-            throw new IllegalArgumentException("Le montant doit être positif ");
+        if (dto.getMontant() == null
+                || dto.getMontant().compareTo(BigDecimal.ZERO) <= 0) {
+
+            throw new IllegalArgumentException(
+                    "Le montant doit être positif."
+            );
         }
         if (!METHODE_PAR_DEFAUT.equals(dto.getMethode())
                 && !"Virement bancaire".equals(dto.getMethode())) {

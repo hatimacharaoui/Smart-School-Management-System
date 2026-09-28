@@ -3,6 +3,7 @@ package com.smartschool.backend.service.impl;
 import com.smartschool.backend.dto.AffectationClassesEnseignantDto;
 import com.smartschool.backend.dto.ClasseEnseignantDto;
 import com.smartschool.backend.entity.ClasseEnseignant;
+import com.smartschool.backend.exception.ResourceNotFoundException;
 import com.smartschool.backend.mapper.Mappers;
 import com.smartschool.backend.repository.ClasseEnseignantRepository;
 import com.smartschool.backend.repository.ClasseScolaireRepository;
@@ -39,7 +40,7 @@ public class ClasseEnseignantServiceImpl implements ClasseEnseignantService {
     @Transactional
     public List<ClasseEnseignantDto> remplacerAffectations(Long enseignantId, AffectationClassesEnseignantDto affectation) {
         if (!enseignantRepository.existsById(enseignantId)) {
-            throw new RuntimeException("Enseignant introuvable");
+            throw new ResourceNotFoundException("Enseignant introuvable");
         }
 
         List<Long> classeIds = affectation.getClasseIds().stream()
@@ -48,7 +49,7 @@ public class ClasseEnseignantServiceImpl implements ClasseEnseignantService {
 
         for (Long classeId : classeIds) {
             if (!classeScolaireRepository.existsById(classeId)) {
-                throw new RuntimeException("Classe introuvable : " + classeId);
+                throw new ResourceNotFoundException("Classe introuvable : " + classeId);
             }
         }
 

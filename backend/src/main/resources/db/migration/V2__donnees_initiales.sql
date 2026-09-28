@@ -14,29 +14,20 @@ INSERT INTO matiere (id, nom, coefficient, actif) VALUES
 INSERT INTO utilisateur (
     id, nom_complet, email, mot_de_passe, role, telephone, actif
 ) VALUES
-    (1, 'Mohammed Alaoui', 'admin@smartschool.com', '{noop}123456',
-     'ADMINISTRATEUR', '+212 6 12 34 56 78', TRUE);
-
-INSERT INTO administrateur (id) VALUES (1);
-
-INSERT INTO utilisateur (
-    id, nom_complet, email, mot_de_passe, role, telephone, actif
-) VALUES
-      (2, 'Sara Bennani', 'sara.bennani@college.ma', '{noop}123456', 'ENSEIGNANT', '+212 6 10 10 10 01', TRUE),
-      (3, 'Hassan Alaoui', 'hassan.alaoui@college.ma', '{noop}123456', 'ENSEIGNANT', '+212 6 10 10 10 02', TRUE),
-      (4, 'Nadia El Fassi', 'nadia.elfassi@college.ma', '{noop}123456', 'ENSEIGNANT', '+212 6 10 10 10 03', TRUE),
-      (5, 'Youssef Berrada', 'youssef.berrada@college.ma', '{noop}123456', 'ENSEIGNANT', '+212 6 10 10 10 04', TRUE),
-      (6, 'Amina Idrissi', 'amina.idrissi@college.ma', '{noop}123456', 'ENSEIGNANT', '+212 6 10 10 10 05', TRUE),
-      (7, 'Rachid Tazi', 'rachid.tazi@college.ma', '{noop}123456', 'ENSEIGNANT', '+212 6 10 10 10 06', TRUE),
-      (8, 'Khadija Amrani', 'khadija.amrani@college.ma', '{noop}123456', 'ENSEIGNANT', '+212 6 10 10 10 07', TRUE),
-      (9, 'Mehdi Lahlou', 'mehdi.lahlou@college.ma', '{noop}123456', 'ENSEIGNANT', '+212 6 10 10 10 08', TRUE),
-      (10, 'Salma Ouazzani', 'salma.ouazzani@college.ma', '{noop}123456', 'ENSEIGNANT', '+212 6 10 10 10 09', TRUE),
-      (11, 'Omar Cherkaoui', 'omar.cherkaoui@college.ma', '{noop}123456', 'ENSEIGNANT', '+212 6 10 10 10 10', TRUE),
-      (12, 'Meryem Naciri', 'meryem.naciri@college.ma', '{noop}123456', 'ENSEIGNANT', '+212 6 10 10 10 11', TRUE),
-      (13, 'Anas Skalli', 'anas.skalli@college.ma', '{noop}123456', 'ENSEIGNANT', '+212 6 10 10 10 12', TRUE);
+      (3, 'Hassan Alaoui', 'hassan.alaoui@college.ma', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'ENSEIGNANT', '+212 6 10 10 10 02', TRUE),
+      (4, 'Nadia El Fassi', 'nadia.elfassi@college.ma', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'ENSEIGNANT', '+212 6 10 10 10 03', TRUE),
+      (5, 'Youssef Berrada', 'youssef.berrada@college.ma', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'ENSEIGNANT', '+212 6 10 10 10 04', TRUE),
+      (6, 'Amina Idrissi', 'amina.idrissi@college.ma', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'ENSEIGNANT', '+212 6 10 10 10 05', TRUE),
+      (7, 'Rachid Tazi', 'rachid.tazi@college.ma', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'ENSEIGNANT', '+212 6 10 10 10 06', TRUE),
+      (8, 'Khadija Amrani', 'khadija.amrani@college.ma', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'ENSEIGNANT', '+212 6 10 10 10 07', TRUE),
+      (9, 'Mehdi Lahlou', 'mehdi.lahlou@college.ma', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'ENSEIGNANT', '+212 6 10 10 10 08', TRUE),
+      (10, 'Salma Ouazzani', 'salma.ouazzani@college.ma', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'ENSEIGNANT', '+212 6 10 10 10 09', TRUE),
+      (11, 'Omar Cherkaoui', 'omar.cherkaoui@college.ma', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'ENSEIGNANT', '+212 6 10 10 10 10', TRUE),
+      (12, 'Meryem Naciri', 'meryem.naciri@college.ma', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'ENSEIGNANT', '+212 6 10 10 10 11', TRUE),
+      (13, 'Anas Skalli', 'anas.skalli@college.ma', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'ENSEIGNANT', '+212 6 10 10 10 12', TRUE);
 
 INSERT INTO enseignant (id, prenom, nom, matiere_id) VALUES
-                                                         (2, 'Sara', 'Bennani', 1),
+                                                         (2, 'Hatim', 'Acharaoui', 1),
                                                          (3, 'Hassan', 'Alaoui', 2),
                                                          (4, 'Nadia', 'El Fassi', 3),
                                                          (5, 'Youssef', 'Berrada', 4),
@@ -92,7 +83,7 @@ SELECT
                 END
     ),
     CONCAT('eleve', (classe.id - 1) * 20 + numero.valeur, '@college.ma'),
-    '{noop}123456',
+    '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.',
     'ELEVE',
     CONCAT('+212 6 30 ', LPAD(classe.id, 2, '0'), ' ', LPAD(numero.valeur, 2, '0'), ' 00'),
     TRUE
@@ -102,7 +93,8 @@ FROM classe_scolaire classe
     UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10
     UNION ALL SELECT 11 UNION ALL SELECT 12 UNION ALL SELECT 13 UNION ALL SELECT 14 UNION ALL SELECT 15
     UNION ALL SELECT 16 UNION ALL SELECT 17 UNION ALL SELECT 18 UNION ALL SELECT 19 UNION ALL SELECT 20
-) numero;
+) numero
+WHERE NOT (classe.id = 1 AND numero.valeur = 1);
 
 INSERT INTO eleve (
     id, matricule, prenom, nom, date_naissance, adresse, classe_id, parent_id
@@ -138,10 +130,6 @@ FROM classe_scolaire classe
 ) numero;
 
 UPDATE utilisateur
-SET nom_complet = 'Adam Acharaoui', email = 'adam1@college.ma'
-WHERE id = 14;
-
-UPDATE utilisateur
 SET nom_complet = 'Sara El Mansouri', email = 'sara2@college.ma'
 WHERE id = 15;
 
@@ -156,29 +144,28 @@ UPDATE eleve SET prenom = 'Yassine', nom = 'Bensouda' WHERE id = 16;
 INSERT INTO utilisateur (
     id, nom_complet, email, mot_de_passe, role, telephone, actif
 ) VALUES
-      (194, 'Ahmed Benali', 'ahmed.benali@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 01', TRUE),
-      (195, 'Fatima El Mansouri', 'fatima.elmansouri@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 02', TRUE),
-      (196, 'Karim Bensouda', 'karim.bensouda@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 03', TRUE),
-      (197, 'Nadia Chraibi', 'nadia.chraibi@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 04', TRUE),
-      (198, 'Omar Tazi', 'omar.tazi@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 05', TRUE),
-      (199, 'Leila Benhaddou', 'leila.benhaddou@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 06', TRUE),
-      (200, 'Amine Alaoui', 'amine.alaoui@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 07', TRUE),
-      (201, 'Salma Idrissi', 'salma.idrissi@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 08', TRUE),
-      (202, 'Ayoub Berrada', 'ayoub.berrada@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 09', TRUE),
-      (203, 'Imane Amrani', 'imane.amrani@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 10', TRUE),
-      (204, 'Mehdi El Fassi', 'mehdi.elfassi@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 11', TRUE),
-      (205, 'Ghita Bennani', 'ghita.bennani@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 12', TRUE),
-      (206, 'Zakaria Ouazzani', 'zakaria.ouazzani@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 13', TRUE),
-      (207, 'Kawtar Lahlou', 'kawtar.lahlou@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 14', TRUE),
-      (208, 'Anas Skalli', 'anas.skalli@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 15', TRUE),
-      (209, 'Meryem Naciri', 'meryem.naciri@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 16', TRUE),
-      (210, 'Ilyas Cherkaoui', 'ilyas.cherkaoui@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 17', TRUE),
-      (211, 'Aya Berrada', 'aya.berrada@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 18', TRUE),
-      (212, 'Yassine Tazi', 'yassine.tazi@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 19', TRUE),
-      (213, 'Siham El Idrissi', 'siham.elidrissi@example.com', '{noop}123456', 'PARENT', '+212 6 20 00 00 20', TRUE);
+      (195, 'Fatima El Mansouri', 'fatima.elmansouri@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 02', TRUE),
+      (196, 'Karim Bensouda', 'karim.bensouda@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 03', TRUE),
+      (197, 'Nadia Chraibi', 'nadia.chraibi@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 04', TRUE),
+      (198, 'Omar Tazi', 'omar.tazi@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 05', TRUE),
+      (199, 'Leila Benhaddou', 'leila.benhaddou@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 06', TRUE),
+      (200, 'Amine Alaoui', 'amine.alaoui@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 07', TRUE),
+      (201, 'Salma Idrissi', 'salma.idrissi@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 08', TRUE),
+      (202, 'Ayoub Berrada', 'ayoub.berrada@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 09', TRUE),
+      (203, 'Imane Amrani', 'imane.amrani@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 10', TRUE),
+      (204, 'Mehdi El Fassi', 'mehdi.elfassi@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 11', TRUE),
+      (205, 'Ghita Bennani', 'ghita.bennani@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 12', TRUE),
+      (206, 'Zakaria Ouazzani', 'zakaria.ouazzani@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 13', TRUE),
+      (207, 'Kawtar Lahlou', 'kawtar.lahlou@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 14', TRUE),
+      (208, 'Anas Skalli', 'anas.skalli@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 15', TRUE),
+      (209, 'Meryem Naciri', 'meryem.naciri@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 16', TRUE),
+      (210, 'Ilyas Cherkaoui', 'ilyas.cherkaoui@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 17', TRUE),
+      (211, 'Aya Berrada', 'aya.berrada@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 18', TRUE),
+      (212, 'Yassine Tazi', 'yassine.tazi@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 19', TRUE),
+      (213, 'Siham El Idrissi', 'siham.elidrissi@example.com', '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.', 'PARENT', '+212 6 20 00 00 20', TRUE);
 
 INSERT INTO parent (id, prenom, nom) VALUES
-                                         (194, 'Ahmed', 'Benali'),
+                                         (194, 'Ahmed', 'Acharaoui'),
                                          (195, 'Fatima', 'El Mansouri'),
                                          (196, 'Karim', 'Bensouda'),
                                          (197, 'Nadia', 'Chraibi'),
@@ -214,7 +201,7 @@ SELECT
             ' ', eleve.nom
     ),
     CONCAT('parent', eleve.id - 13, '@example.com'),
-    '{noop}123456',
+    '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.',
     'PARENT',
     CONCAT('+212 6 21 00 ', LPAD(eleve.id - 13, 2, '0')),
     TRUE
@@ -338,7 +325,7 @@ SELECT
     1500,
     CASE MOD(eleve.id - 13, 3)
         WHEN 0 THEN 'Virement bancaire'
-        WHEN 1 THEN 'Carte bancaire'
+        WHEN 1 THEN 'Virement bancaire'
         ELSE 'Espèces'
         END,
     CASE MOD((eleve.id - 13) - 1, 3)
@@ -354,34 +341,6 @@ SELECT
     CONCAT('/justificatifs/paiement-00', MOD((eleve.id - 13) - 1, 3) + 1, '.txt')
 FROM eleve
 WHERE eleve.id BETWEEN 14 AND 73;
-
-INSERT INTO horaire_emploi_du_temp (
-    jour, heure_debut, matiere_id, classe_id, enseignant_id, salle
-)
-SELECT
-    jours.jour,
-    horaires.heure_debut,
-    enseignant.matiere_id,
-    affectation.classe_id,
-    affectation.enseignant_id,
-    CONCAT('Salle ', affectation.classe_id, '0', horaires.numero)
-FROM (
-         SELECT
-             classe_enseignant.*,
-             ROW_NUMBER() OVER (PARTITION BY classe_id ORDER BY id) AS rang
-         FROM classe_enseignant
-     ) affectation
-         JOIN enseignant ON enseignant.id = affectation.enseignant_id
-         CROSS JOIN (
-    SELECT 'Lundi' jour UNION ALL SELECT 'Mardi' UNION ALL SELECT 'Mercredi'
-    UNION ALL SELECT 'Jeudi' UNION ALL SELECT 'Vendredi' UNION ALL SELECT 'Samedi'
-) jours
-         JOIN (
-    SELECT 1 numero, '08:00:00' heure_debut
-    UNION ALL SELECT 2, '10:00:00'
-    UNION ALL SELECT 3, '14:00:00'
-    UNION ALL SELECT 4, '16:00:00'
-) horaires ON horaires.numero = affectation.rang;
 
 INSERT INTO notification (
     destinataire_id, titre, message, type, date_creation, lue, entite_liee_id
@@ -469,8 +428,3 @@ SELECT id, 'Annonce administrative',
        'ANNONCE', NOW(), FALSE, NULL
 FROM utilisateur
 WHERE role = 'PARENT';
-
-
-UPDATE paiement
-SET methode = 'Virement bancaire'
-WHERE methode NOT IN ('Espèces', 'Virement bancaire');

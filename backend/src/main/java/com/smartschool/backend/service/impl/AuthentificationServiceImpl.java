@@ -35,7 +35,7 @@ public class AuthentificationServiceImpl implements AuthentificationService {
                 .email(user.getEmail())
                 .token(token)
                 .telephone(user.getTelephone())
-                .role(user.getRole().name())
+                .role(user.getRole())
                 .build();
     }
 

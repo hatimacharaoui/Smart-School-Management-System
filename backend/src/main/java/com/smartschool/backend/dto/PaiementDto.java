@@ -4,12 +4,10 @@ import com.smartschool.backend.entity.StatutPaiement;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -27,7 +25,8 @@ public class PaiementDto {
     private Long parentId;
 
     @Positive(message = "La valeur doit être strictement positive.")
-    private double montant;
+    @DecimalMin(value = "0.01", message = "Le montant doit être supérieur à zéro.")
+    private BigDecimal montant;
 
     @NotBlank(message = "Ce champ est obligatoire.")
     @Size(max = 80, message = "La longueur doit être comprise entre {min} et {max} caractères.")
