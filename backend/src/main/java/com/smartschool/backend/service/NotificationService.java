@@ -10,12 +10,6 @@ public interface NotificationService {
 
     Page<NotificationDto> chercherParUtilisateur(Long id, String recherche, Boolean lue, Pageable pageable);
 
-    Page<NotificationDto> chercherParDestinataire(
-            Long destinataireId,
-            String recherche,
-            Boolean lue,
-            Pageable pagination
-    );
     NotificationDto creer(NotificationDto notification);
 
     NotificationDto marquerCommeLue(Long id);

@@ -17,7 +17,7 @@ import {useAuth} from "../context/AuthContext.jsx";
 
 const menu = {
     ADMINISTRATEUR: [
-        { to: "/TableauDeBord", label: "Tableau de bord", icon: LayoutDashboard },
+        { to: "/tableau-de-bord", label: "Tableau de bord", icon: LayoutDashboard },
         { to: "/eleves", label: "Élèves", icon: Users },
         { to: "/enseignants", label: "Enseignants", icon: BookOpen },
         { to: "/parents", label: "Parents", icon: UserRound },

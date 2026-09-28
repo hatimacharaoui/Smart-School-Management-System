@@ -1,4 +1,4 @@
-import api from "./clientApi.js"
+import api from "./Api.js"
 
 export const notificationsApi = {
     getByUser: (userId, params) => api.get(`/notifications/utilisateur/${userId}`, {params}),

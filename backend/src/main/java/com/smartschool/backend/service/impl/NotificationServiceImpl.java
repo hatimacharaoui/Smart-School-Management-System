@@ -51,4 +51,22 @@ public class NotificationServiceImpl implements NotificationService {
         }
     }
 
+
+    @CacheEvict(value = "notifications", allEntries = true)
+    public NotificationDto creer(NotificationDto dto) {
+        Notification notification = mappers.toEntite(dto);
+        if (notification.getDateCreation() == null) {
+            notification.setDateCreation(LocalDateTime.now());
+        }
+        return mappers.toDto(notificationRepository.save(notification));
+    }
+
+    @CacheEvict(value = "notifications", allEntries = true)
+    public NotificationDto marquerCommeLue(Long id) {
+        Notification notification = notificationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Notification introuvable"));
+        notification.setLue(true);
+        return mappers.toDto(notificationRepository.save(notification));
+    }
+
 }

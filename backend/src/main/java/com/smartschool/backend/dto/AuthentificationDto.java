@@ -22,9 +22,9 @@ public class AuthentificationDto {
 
     @NotBlank(message = "Ce champ est obligatoire.")
     @Size(
-            min = 6,
+            min = 5,
             max = 100,
-            message = "La longueur doit être comprise entre 6 et 100 caractères."
+            message = "La longueur doit être comprise entre 5 et 100 caractères."
     )
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String motDePasse;

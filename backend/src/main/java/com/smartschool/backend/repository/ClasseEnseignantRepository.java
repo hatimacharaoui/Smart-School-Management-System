@@ -11,5 +11,9 @@ public interface ClasseEnseignantRepository extends JpaRepository<ClasseEnseigna
 
     Page<ClasseEnseignant> findByEnseignantId(Long enseignantId, Pageable pageable);
 
+    void deleteByEnseignantId(Long enseignantId);
 
+    boolean existsByEnseignantId(Long enseignantId);
+
+    boolean existsByClasseId(Long classeId);
 }

@@ -35,7 +35,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class JustificatifPaiementServiceImpl {
+public class JustificatifPaiementServiceImpl implements JustificatifPaiementService {
     private final PaiementRepository paiementRepository;
     private final UserRepository userRepository;
     private final NotificationService notificationService;

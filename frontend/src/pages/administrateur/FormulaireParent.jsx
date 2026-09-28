@@ -3,7 +3,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
-import {parentsApipi} from "../../services/api/parentsApipi.js";
 import {obtenirMessageErreur} from "../../services/api/Api.js";
 import {parentsApi} from "../../services/api/parentsApi.js";
 
@@ -61,7 +60,7 @@ export default function FormulaireParent() {
         }
 
         try {
-            const reponse = await parentsApipi.getById(id);
+            const reponse = await parentsApi.getById(id);
             reset(reponse.data);
         } catch (exception) {
             setErreur(obtenirMessageErreur(exception));

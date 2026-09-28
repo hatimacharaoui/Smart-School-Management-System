@@ -4,8 +4,8 @@ import Pagination from "../../components/Pagination";
 
 import usePagination, {PageVide,} from "../../hooks/usePagination";
 import {parentsApi} from "../../services/api/parentsApi.js";
-import {notesApi as elevesAPI} from "../../services/api/notesApi.js";
 import {obtenirMessageErreur} from "../../services/api/Api.js";
+import {elevesApi} from "../../services/api/elevesApi.js";
 
 export default function ParentsAdministrateur() {
     const [pageParents, setPageParents] = useState(PageVide());
@@ -27,7 +27,7 @@ export default function ParentsAdministrateur() {
                     recherche,
                     ...pagination.parametres,
                 }),
-                elevesAPI.getAll({ size: 1000 }),
+                elevesApi.getAll({ size: 1000 }),
             ]);
             setPageParents(reponses[0].data);
             setEleves(reponses[1].data.content);

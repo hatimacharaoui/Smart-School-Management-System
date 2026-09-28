@@ -13,8 +13,14 @@ public interface PaiementService {
 
     Page<PaiementDto> afficher( StatutPaiement statut, LocalDate dateDebut, LocalDate dateFin,Pageable pagination);
 
+    PaiementDto chercherParId(Long id);
+
     PaiementDto creer(PaiementDto dto);
 
     PaiementDto modifier(Long id, PaiementDto dto);
+
+    Page<PaiementDto> listerMensuels(int annee, int mois, StatutPaiement statut, Pageable pagination);
+
+    PaiementDto modifierStatut(Long id, StatutPaiement statut);
 
 }

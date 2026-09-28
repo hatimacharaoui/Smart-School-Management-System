@@ -12,7 +12,7 @@ const schema = yup.object({
         .required("L'adresse email est obligatoire"),
     motDePasse: yup
         .string()
-        .min(6, "Le mot de passe contient au moins 6 caractères")
+        .min(5, "Le mot de passe contient au moins 5 caractères")
         .required("Le mot de passe est obligatoire"),
 });
 

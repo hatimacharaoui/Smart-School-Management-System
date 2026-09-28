@@ -27,7 +27,7 @@ public class NoteDto {
     @DecimalMax(value = "20", message = "La valeur doit être inférieure ou égale à {value}.")
     private double valeur;
 
-    private double valeurMaximal;
+    private double valeurMaximale;
 
     private LocalDate date;
 

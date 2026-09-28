@@ -42,7 +42,6 @@ function App() {
 
     return (
         <>
-            <AlerteApi />
             <Routes>
                 <Route path="/" element={<Accueil />} />
                 <Route path="/connexion" element={<Connexion />} />
@@ -189,7 +188,6 @@ function App() {
                             <PageParRole
                                 administrateur={DevoirsAdministrateur}
                                 enseignant={DevoirsEnseignant}
-                                eleve={DevoirsEleve}
                             />
                         }
                     />
@@ -207,6 +205,14 @@ function App() {
                             <PageParRole
                                 administrateur={EmploiDuTempsAdministrateur}
                                 enseignant={EmploiDuTempsEnseignant}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/paiements"
+                        element={
+                            <PageParRole
+                                administrateur={PaiementsAdministrateur}
                             />
                         }
                     />

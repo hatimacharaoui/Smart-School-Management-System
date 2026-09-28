@@ -4,9 +4,9 @@ import usePagination, {
     PageVide,
 } from "../../hooks/usePagination";
 import {matieresApi} from "../../services/api/matieresApi.js";
-import {notesApi as enseignantsAPI} from "../../services/api/notesApi.js";
 import {classesApi} from "../../services/api/classesApi.js";
 import {devoirsApi} from "../../services/api/devoirsApi.js";
+import {enseignantsApi} from "../../services/api/enseignantsApi.js";
 
 export default function DevoirsAdministrateur() {
     const [pageDevoirs, setPageDevoirs] = useState(PageVide());
@@ -34,7 +34,7 @@ export default function DevoirsAdministrateur() {
         try {
             const reponses = await Promise.all([
                 matieresApi.getAll({ size: 1000 }),
-                enseignantsAPI.getAll({ size: 1000 }),
+                enseignantsApi.getAll({ size: 1000 }),
                 classesApi.getAll({ size: 1000 }),
             ]);
             setMatieres(reponses[0].data.content);

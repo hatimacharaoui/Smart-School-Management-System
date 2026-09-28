@@ -105,7 +105,7 @@ public class PaiementServiceImpl implements PaiementService {
                 finMois
         )) {
             throw new IllegalArgumentException(
-                    "Un paiement existe déjà pour cet élève et ce mois."
+                    "Un paiement existe déjà pour cet élève et ce mois "
             );
         }
         Paiement paiement = mappers.toEntite(dto);
@@ -129,14 +129,14 @@ public class PaiementServiceImpl implements PaiementService {
                 .orElseThrow(() -> new RuntimeException("Élève introuvable"));
         if (!Objects.equals(dto.getParentId(), eleve.getParentId())) {
             throw new IllegalArgumentException(
-                    "Le parent sélectionné n'est pas lié à cet élève."
+                    "Le parent sélectionné n'est pas lié à cet élève "
             );
         }
 
         if (user.getRole() == Role.PARENT) {
             if (!Objects.equals(user.getId(), dto.getParentId())) {
                 throw new IllegalArgumentException(
-                        "Vous ne pouvez créer un paiement que pour votre enfant."
+                        "Vous ne pouvez créer un paiement que pour votre enfant "
                 );
             }
             dto.setStatut(StatutPaiement.EN_ATTENTE);
@@ -146,14 +146,14 @@ public class PaiementServiceImpl implements PaiementService {
     private void verifierAccesParent(Long parentId) {
         User user = utilisateurConnecte();
         if (user.getRole() == Role.PARENT && !Objects.equals(user.getId(), parentId)) {
-            throw new IllegalArgumentException("Ce paiement ne concerne pas votre compte.");
+            throw new IllegalArgumentException("Ce paiement ne concerne pas votre compte ");
         }
     }
 
     private User utilisateurConnecte() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) {
-            throw new IllegalArgumentException("Utilisateur non authentifié.");
+            throw new IllegalArgumentException("Utilisateur non authentifié ");
         }
         return userRepository.findByEmail(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
@@ -161,12 +161,12 @@ public class PaiementServiceImpl implements PaiementService {
 
     private void verifierMontantEtMethode(PaiementDto dto) {
         if (dto.getMontant() <= 0) {
-            throw new IllegalArgumentException("Le montant doit être positif.");
+            throw new IllegalArgumentException("Le montant doit être positif ");
         }
         if (!METHODE_PAR_DEFAUT.equals(dto.getMethode())
                 && !"Virement bancaire".equals(dto.getMethode())) {
             throw new IllegalArgumentException(
-                    "La méthode doit être Espèces ou Virement bancaire."
+                    "La méthode doit être Espèces ou Virement bancaire "
             );
         }
     }
@@ -219,6 +219,6 @@ public class PaiementServiceImpl implements PaiementService {
 
     private Paiement findById(Long id) {
         return paiementRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Paiement introuvalbe"));
+                .orElseThrow(() -> new RuntimeException("Paiement introuvable"));
     }
 }

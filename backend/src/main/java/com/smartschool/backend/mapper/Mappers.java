@@ -116,6 +116,9 @@ public interface Mappers {
     @Mapping(target = "role", ignore = true)
     @Mapping(target = "actif", ignore = true)
     User toEntite(UserDto dto);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "actif", ignore = true)
     void update(UserDto dto, @MappingTarget User user);
 
 }
