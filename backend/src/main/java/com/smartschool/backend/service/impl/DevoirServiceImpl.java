@@ -1,12 +1,10 @@
 package com.smartschool.backend.service.impl;
 
 import com.smartschool.backend.dto.DevoirDto;
-import com.smartschool.backend.entity.Devoir;
-import com.smartschool.backend.entity.Role;
-import com.smartschool.backend.entity.StatutDevoir;
-import com.smartschool.backend.entity.TypeNotification;
+import com.smartschool.backend.entity.*;
 import com.smartschool.backend.mapper.Mappers;
 import com.smartschool.backend.repository.DevoirRepository;
+import com.smartschool.backend.repository.EleveRepository;
 import com.smartschool.backend.service.DevoirService;
 import com.smartschool.backend.service.NotificationService;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +14,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DevoirServiceImpl implements DevoirService {
 
     private final DevoirRepository devoirRepository;
+    private final EleveRepository eleveRepository;
     private final NotificationService notificationService;
     private final Mappers mappers;
 
@@ -78,29 +79,47 @@ public class DevoirServiceImpl implements DevoirService {
 
     @CacheEvict(value = "devoirs", allEntries = true)
     public DevoirDto modifierStatut(Long id, StatutDevoir statut) {
+
         Devoir devoir = findById(id);
         devoir.setStatut(statut);
         Devoir devoirEnregistre = devoirRepository.save(devoir);
 
         if (statut == StatutDevoir.EN_CORRECTION) {
-            notificationService.notifierRole(
-                    Role.ENSEIGNANT,
+
+            notificationService.notifierUtilisateur(
+                    devoir.getEnseignantId(),
                     "Devoir en correction",
-                    "Un devoir est prêt à être corrigé.",
+                    "Le devoir \"" + devoir.getTitre() + "\" est prêt à être corrigé.",
                     TypeNotification.DEVOIR,
-                    id
+                    devoir.getId()
             );
+
         } else if (statut == StatutDevoir.CORRIGE) {
-            notificationService.notifierRole(
-                    Role.ELEVE,
-                    "Devoir corrigé",
-                    "Votre devoir a été corrigé.",
-                    TypeNotification.DEVOIR,
-                    id
-            );
+
+            List<Eleve> eleves =
+                    eleveRepository.findByClasseId(devoir.getClasseId());
+
+            for (Eleve eleve : eleves) {
+
+                notificationService.notifierUtilisateur(
+                        eleve.getId(),
+                        "Devoir corrigé",
+                        "Le devoir \"" + devoir.getTitre() + "\" a été corrigé.",
+                        TypeNotification.DEVOIR,
+                        devoir.getId()
+                );
+
+                notificationService.notifierUtilisateur(
+                        eleve.getParentId(),
+                        "Devoir corrigé",
+                        "Le devoir \"" + devoir.getTitre() + "\" de votre enfant a été corrigé.",
+                        TypeNotification.DEVOIR,
+                        devoir.getId()
+                );}
         }
         return mappers.toDto(devoirEnregistre);
     }
+
 
     public Page<DevoirDto> chercherParEnseignant(Long enseignantId, String recherche, StatutDevoir statut, Pageable pagination) {
 

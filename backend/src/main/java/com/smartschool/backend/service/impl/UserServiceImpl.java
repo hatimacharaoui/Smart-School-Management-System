@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Cacheable(value = "utilisateurs", key = "'id-' + #id")
     public UserDto chercherParId(Long id) {
+
         return mappers.toDto(findById(id));
     }
 

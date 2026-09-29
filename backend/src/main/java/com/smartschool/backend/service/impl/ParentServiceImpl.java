@@ -30,10 +30,7 @@ public class ParentServiceImpl implements ParentService {
             return parentRepository.findAll(pagination).map(mappers::toDto);
         }
         return parentRepository.findByPrenomContainingIgnoreCaseOrNomContainingIgnoreCase(
-                recherche,
-                recherche,
-                pagination
-        ).map(mappers::toDto);
+                recherche, recherche, pagination).map(mappers::toDto);
     }
 
     @Override

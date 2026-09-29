@@ -49,14 +49,14 @@ public class PresenceServiceImpl implements PresenceService {
     @CacheEvict(value = "presences", allEntries = true)
     public PresenceDto enregistrer(PresenceDto dto) {
         Presence presence = mappers.toEntite(dto);
-        Presence presenceEnregistree = enregistrerEntite(presence);
+        Presence presenceEnregistree = enregistrerPresence(presence);
         return mappers.toDto(presenceEnregistree);
     }
 
-    private Presence enregistrerEntite(Presence presence) {
+    private Presence enregistrerPresence(Presence presence) {
+        /*check presence de l'etudiant de chaque matiere et met update si exist*/
         Optional<Presence> presenceExistante = presenceRepository
                 .findByEleveIdAndDateAndMatiereId(presence.getEleveId(), presence.getDate(), presence.getMatiereId());
-
         if (presenceExistante.isPresent()) {
             presence.setId(presenceExistante.get().getId());
         }
@@ -92,33 +92,10 @@ public class PresenceServiceImpl implements PresenceService {
         List<PresenceDto> resultats = new ArrayList<>();
         for (PresenceDto dto : presences) {
             Presence presence = mappers.toEntite(dto);
-            Presence resultat = enregistrerEntite(presence);
+            Presence resultat = enregistrerPresence(presence);
             resultats.add(mappers.toDto(resultat));
         }
         return resultats;
     }
 
-    public PresenceDto creer(PresenceDto dto) {
-        Presence presence = mappers.toEntite(dto);
-
-        return mappers.toDto(presenceRepository.save(presence));
-    }
-
-
-    public PresenceDto modifier(Long id, PresenceDto dto) {
-        Presence presence = findById(id);
-        mappers.update(dto, presence);
-
-        return mappers.toDto(presenceRepository.save(presence));
-    }
-
-
-    public void supprimer(Long id) {
-        presenceRepository.delete(findById(id));
-    }
-
-    private Presence findById(Long id) {
-        return presenceRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Prensence introuvable"));
-    }
 }

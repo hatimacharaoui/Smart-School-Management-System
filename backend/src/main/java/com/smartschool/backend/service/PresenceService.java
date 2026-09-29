@@ -19,9 +19,4 @@ public interface PresenceService {
 
     List<PresenceDto> enregistrerTout(List<PresenceDto> presences);
 
-    PresenceDto creer(PresenceDto dto);
-
-    PresenceDto modifier(Long id, PresenceDto dto);
-
-    void supprimer(Long id);
 }

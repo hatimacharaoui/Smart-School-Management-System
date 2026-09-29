@@ -67,9 +67,7 @@ public class NotificationServiceImpl implements NotificationService {
     public void notifierUtilisateur(Long destinataireId, String titre, String message, TypeNotification type, Long entiteLieeId) {
 
         if (!userRepository.existsById(destinataireId)) {
-            throw new ResourceNotFoundException(
-                    "Destinataire introuvable."
-            );
+            throw new ResourceNotFoundException("Destinataire introuvable.");
         }
 
         Notification notification = Notification.builder()

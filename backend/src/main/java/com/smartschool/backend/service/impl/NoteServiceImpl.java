@@ -31,47 +31,21 @@ public class NoteServiceImpl implements NoteService {
     private final NotificationService notificationService;
     private final Mappers mappers;
 
-    public Page<NoteDto> lister(
-            Long eleveId,
-            Long devoirId,
-            Long enseignantId,
-            Long classeId,
-            Long matiereId,
-            String rechercheEleve,
-            Pageable pagination
-    ) {
-        return noteRepository.rechercher(
-                eleveId,
-                devoirId,
-                enseignantId,
-                classeId,
-                matiereId,
-                rechercheEleve,
-                pagination
+    public Page<NoteDto> lister(Long eleveId, Long devoirId, Long enseignantId, Long classeId, Long matiereId, String rechercheEleve, Pageable pagination) {
+
+        return noteRepository.rechercher(eleveId, devoirId, enseignantId, classeId, matiereId, rechercheEleve, pagination
         ).map(mappers::toDto);
     }
 
     public Page<NoteDto> chercherParEleve(Long eleveId, Pageable pagination) {
-        return noteRepository.rechercher(
-                eleveId,
-                null,
-                null,
-                null,
-                null,
-                null,
-                pagination
+
+        return noteRepository.rechercher(eleveId, null, null, null, null, null, pagination
         ).map(mappers::toDto);
     }
 
     public Page<NoteDto> chercherParDevoir(Long devoirId, Pageable pagination) {
-        return noteRepository.rechercher(
-                null,
-                devoirId,
-                null,
-                null,
-                null,
-                null,
-                pagination
+
+        return noteRepository.rechercher(null, devoirId, null, null, null, null, pagination
         ).map(mappers::toDto);
     }
 
@@ -93,6 +67,7 @@ public class NoteServiceImpl implements NoteService {
                     ligne.getEleveId(),
                     devoir.getId()
             );
+
             Note note;
             if (noteExistante.isPresent()) {
                 note = noteExistante.get();

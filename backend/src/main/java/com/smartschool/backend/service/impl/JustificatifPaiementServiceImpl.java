@@ -55,8 +55,8 @@ public class JustificatifPaiementServiceImpl implements JustificatifPaiementServ
             Path dossier = Paths.get(dossierJustificatifs).toAbsolutePath().normalize();
             Files.createDirectories(dossier);
 
-            String extension = chercherExtension(fichier.getOriginalFilename());
-            String nomFichier = "paiement-" + paiementId + "-" + UUID.randomUUID() + extension;
+            String dotType = chercherExtension(fichier.getOriginalFilename());
+            String nomFichier = "paiement-" + paiementId + "-" + UUID.randomUUID() + dotType;
             Path destination = dossier.resolve(nomFichier).normalize();
             Files.copy(fichier.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
 
@@ -71,7 +71,7 @@ public class JustificatifPaiementServiceImpl implements JustificatifPaiementServ
             );
             return mappers.toDto(paiementModifie);
         } catch (IOException exception) {
-            throw new IllegalArgumentException("Impossible d’enregistrer le justificatif.");
+            throw new IllegalArgumentException("Impossible d’enregistrer le justificatif ");
         }
     }
 

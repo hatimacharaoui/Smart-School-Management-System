@@ -57,6 +57,7 @@ public interface EleveRepository extends JpaRepository<Eleve, Long> {
             Pageable pagination
     );
 
+    List<Eleve> findByClasseId(Long classeId);
     long countByClasseId(Long classeId);
     boolean existsByClasseId(Long classeId);
     boolean existsByParentId(Long parentId);

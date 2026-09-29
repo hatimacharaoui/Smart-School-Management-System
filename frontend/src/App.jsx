@@ -36,6 +36,17 @@ import EmploiDuTempsEnseignant from "./pages/enseignant/EmploiDuTempsEnseignant.
 import NotificationsEnseignant from "./pages/enseignant/NotificationsEnseignant.jsx";
 import ProfilEnseignant from "./pages/enseignant/ProfilEnseignant.jsx";
 import AccueilEleve from "./pages/eleve/AccueilEleve.jsx";
+import ProfilParent from "./pages/parent/ProfilParent.jsx";
+import TableauDeBordParent from "./pages/parent/TableauDeBordParent.jsx";
+import NotificationsParent from "./pages/parent/NotificationsParent.jsx";
+import FormulaireJustificatifPaiement from "./pages/parent/FormulaireJustificatifPaiement.jsx";
+import FormulairePaiementParent from "./pages/parent/FormulairePaiementParent.jsx";
+import PaiementsParent from "./pages/parent/PaiementsParent.jsx";
+import EmploiDuTempsParent from "./pages/parent/EmploiDuTempsParent.jsx";
+import DevoirsParent from "./pages/parent/DevoirsParent.jsx";
+import PresencesParent from "./pages/parent/PresencesParent.jsx";
+import NotesParent from "./pages/parent/NotesParent.jsx";
+import MatieresParent from "./pages/parent/MatieresParent.jsx";
 
 
 function App() {
@@ -46,11 +57,7 @@ function App() {
                 <Route path="/" element={<Accueil />} />
                 <Route path="/connexion" element={<Connexion />} />
                 <Route
-                    element={
-                        <ProtectedRoute>
-                            <Layout />
-                        </ProtectedRoute>
-                    }
+                    element={<ProtectedRoute><Layout /></ProtectedRoute>}
                 >
                     <Route
                         path="/tableau-de-bord"
@@ -59,6 +66,7 @@ function App() {
                                 administrateur={TableauDeBordAdministrateur}
                                 enseignant={TableauDeBordEnseignant}
                                 eleve={AccueilEleve}
+                                parent={TableauDeBordParent}
                             />
                         }
                     />
@@ -137,6 +145,7 @@ function App() {
                         element={
                             <PageParRole
                                 administrateur={MatieresAdministrateur}
+                                parent={MatieresParent}
                             />
                         }
                     />
@@ -162,6 +171,7 @@ function App() {
                             <PageParRole
                                 administrateur={NotesAdministrateur}
                                 enseignant={NotesEnseignant}
+                                parent={NotesParent}
                             />
                         }
                     />
@@ -175,6 +185,7 @@ function App() {
                             <PageParRole
                                 administrateur={PresencesAdministrateur}
                                 enseignant={PresencesEnseignant}
+                                parent={PresencesParent}
                             />
                         }
                     />
@@ -188,6 +199,7 @@ function App() {
                             <PageParRole
                                 administrateur={DevoirsAdministrateur}
                                 enseignant={DevoirsEnseignant}
+                                parent={DevoirsParent}
                             />
                         }
                     />
@@ -205,6 +217,7 @@ function App() {
                             <PageParRole
                                 administrateur={EmploiDuTempsAdministrateur}
                                 enseignant={EmploiDuTempsEnseignant}
+                                parent={EmploiDuTempsParent}
                             />
                         }
                     />
@@ -213,8 +226,17 @@ function App() {
                         element={
                             <PageParRole
                                 administrateur={PaiementsAdministrateur}
+                                parent={PaiementsParent}
                             />
                         }
+                    />
+                    <Route
+                        path="/paiements/ajouter"
+                        element={<PageParRole parent={FormulairePaiementParent} />}
+                    />
+                    <Route
+                        path="/paiements/:id/justificatif"
+                        element={<PageParRole parent={FormulaireJustificatifPaiement} />}
                     />
                     <Route
                         path="/notifications"
@@ -222,6 +244,7 @@ function App() {
                             <PageParRole
                                 administrateur={NotificationsAdministrateur}
                                 enseignant={NotificationsEnseignant}
+                                parent={NotificationsParent}
                             />
                         }
                     />
@@ -235,6 +258,7 @@ function App() {
                             <PageParRole
                                 administrateur={ProfilAdministrateur}
                                 enseignant={ProfilEnseignant}
+                                parent={ProfilParent}
                             />
                         }
                     />

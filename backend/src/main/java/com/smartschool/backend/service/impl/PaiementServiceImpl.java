@@ -56,24 +56,16 @@ public class PaiementServiceImpl implements PaiementService {
         return paiementRepository.rechercher(eleveId, statut, dateDebut, dateFin, pagination).map(mappers::toDto);
     }
 
-    public Page<PaiementDto> listerMensuels(
-            int annee,
-            int mois,
-            StatutPaiement statut,
-            Pageable pagination
-    ) {
-        if (annee < 2020 || annee > 2100 || mois < 1 || mois > 12) {
+    public Page<PaiementDto> listerMensuels(int annee, int mois, StatutPaiement statut, Pageable pagination) {
+
+        if (annee < 2025 || annee > 2028 || mois < 1 || mois > 12) {
             throw new IllegalArgumentException("Le mois demandé est invalide.");
         }
 
         LocalDate dateDebut = LocalDate.of(annee, mois, 1);
         LocalDate dateFin = dateDebut.plusMonths(1).minusDays(1);
         Page<Eleve> pageEleves = eleveRepository.chercherParStatutPaiementMensuel(
-                statut,
-                StatutPaiement.EN_ATTENTE,
-                dateDebut,
-                dateFin,
-                pagination
+                statut, StatutPaiement.EN_ATTENTE, dateDebut, dateFin, pagination
         );
         List<Long> eleveIds = new ArrayList<>();
         for (Eleve eleve : pageEleves.getContent()) {
@@ -83,10 +75,7 @@ public class PaiementServiceImpl implements PaiementService {
         List<Paiement> paiements = new ArrayList<>();
         if (!eleveIds.isEmpty()) {
             paiements = paiementRepository.findByEleveIdInAndDateBetween(
-                    eleveIds,
-                    dateDebut,
-                    dateFin
-            );
+                    eleveIds, dateDebut, dateFin);
         }
 
         List<Paiement> paiementsDuMois = paiements;
@@ -144,29 +133,13 @@ public class PaiementServiceImpl implements PaiementService {
         }
     }
 
-    private void verifierAccesParent(Long parentId) {
-        User user = utilisateurConnecte();
-        if (user.getRole() == Role.PARENT && !Objects.equals(user.getId(), parentId)) {
-            throw new IllegalArgumentException("Ce paiement ne concerne pas votre compte ");
-        }
-    }
 
-    private User utilisateurConnecte() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
-            throw new IllegalArgumentException("Utilisateur non authentifié ");
-        }
-        return userRepository.findByEmail(authentication.getName())
-                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
-    }
 
     private void verifierMontantEtMethode(PaiementDto dto) {
         if (dto.getMontant() == null
                 || dto.getMontant().compareTo(BigDecimal.ZERO) <= 0) {
 
-            throw new IllegalArgumentException(
-                    "Le montant doit être positif."
-            );
+            throw new IllegalArgumentException("Le montant doit être positif.");
         }
         if (!METHODE_PAR_DEFAUT.equals(dto.getMethode())
                 && !"Virement bancaire".equals(dto.getMethode())) {
@@ -177,10 +150,8 @@ public class PaiementServiceImpl implements PaiementService {
     }
 
     private PaiementDto construirePaiementMensuel(
-            Eleve eleve,
-            List<Paiement> paiements,
-            LocalDate dateMois
-    ) {
+            Eleve eleve, List<Paiement> paiements, LocalDate dateMois) {
+
         for (Paiement paiement : paiements) {
             if (Objects.equals(paiement.getEleveId(), eleve.getId())) {
                 return mappers.toDto(paiement);
@@ -220,6 +191,23 @@ public class PaiementServiceImpl implements PaiementService {
         } else {
             return "En attente";
         }
+    }
+
+
+    private void verifierAccesParent(Long parentId) {
+        User user = utilisateurConnecte();
+        if (user.getRole() == Role.PARENT && !Objects.equals(user.getId(), parentId)) {
+            throw new IllegalArgumentException("Ce paiement ne concerne pas votre compte ");
+        }
+    }
+
+    private User utilisateurConnecte() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            throw new IllegalArgumentException("Utilisateur non authentifié ");
+        }
+        return userRepository.findByEmail(authentication.getName())
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
     }
 
     private Paiement findById(Long id) {
