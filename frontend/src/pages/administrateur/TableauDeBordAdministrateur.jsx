@@ -34,8 +34,8 @@ export default function TableauDeBordAdministrateur() {
                 classesApi.getAll({size: 1000}),
                 presencesApi.getPresence({size: 10, sort: "date,desc"}),
                 matieresApi.getAll({size: 1}),
-                devoirsApi.getAll({statut: "EN-CORRECTION", size: 1}),
-                paiementsApi.getAll({statut: "EN-ATTENTE", size: 1}),
+                devoirsApi.getAll({statut: "EN_CORRECTION", size: 1}),
+                paiementsApi.getAll({statut: "EN_ATTENTE", size: 1}),
                 notificationsApi.getByUser(user.id, { lue: false, size: 1})
             ]);
 
@@ -71,7 +71,7 @@ export default function TableauDeBordAdministrateur() {
             <div className="stats">
                 <Carte label="Elèves" value={total.eleves || 0} />
                 <Carte label="Enseignants" value={total.enseignants || 0} />
-                <Carte label="Classes" value={total.className || 0} />
+                <Carte label="Classes" value={total.classes  || 0} />
                 <Carte label="Matières" value={total.matieres || 0} />
                 <Carte label="Absences et retards" value={total.presences || 0} />
                 <Carte label="Devoirs en correction" value={total.devoirs || 0} />

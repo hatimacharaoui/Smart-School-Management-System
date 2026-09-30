@@ -2,7 +2,7 @@
 INSERT INTO utilisateur (
     id, nom_complet, email, mot_de_passe, role, telephone, actif
 ) VALUES
-      (1, 'Mohammed Alaoui', 'admin@smartschool.com',
+      (1, 'Hatim Acharaoui', 'admin@smartschool.com',
        '{bcrypt}$2b$12$mu5kzuD6cZwNgul7uFVvk.hSNMCb6In9gsuoZV0i7NyQgKiYQ52K.',
        'ADMINISTRATEUR', '+212 6 12 34 56 78', TRUE),
       (2, 'Hatim Acharaoui', 'hatim.acharaoui@smartschool.ma',
@@ -77,3 +77,158 @@ INSERT INTO notification (
       (194, 'Annonce administrative',
        'Consultez les nouvelles informations communiquées par l’administration.',
        'ANNONCE', NOW(), FALSE, NULL);
+
+
+
+ALTER TABLE administrateur
+    ADD CONSTRAINT fk_administrateur_utilisateur
+        FOREIGN KEY (id)
+            REFERENCES utilisateur(id)
+            ON DELETE CASCADE;
+
+
+ALTER TABLE enseignant
+    ADD CONSTRAINT fk_enseignant_utilisateur
+        FOREIGN KEY (id)
+            REFERENCES utilisateur(id)
+            ON DELETE CASCADE,
+
+    ADD CONSTRAINT fk_enseignant_matiere
+        FOREIGN KEY (matiere_id)
+            REFERENCES matiere(id)
+            ON DELETE RESTRICT;
+
+
+ALTER TABLE parent
+    ADD CONSTRAINT fk_parent_utilisateur
+        FOREIGN KEY (id)
+            REFERENCES utilisateur(id)
+            ON DELETE CASCADE;
+
+
+ALTER TABLE classe_scolaire
+    ADD CONSTRAINT fk_classe_enseignant_principal
+        FOREIGN KEY (enseignant_principal_id)
+            REFERENCES enseignant(id)
+            ON DELETE SET NULL;
+
+
+ALTER TABLE eleve
+    ADD CONSTRAINT fk_eleve_utilisateur
+        FOREIGN KEY (id)
+            REFERENCES utilisateur(id)
+            ON DELETE CASCADE,
+
+    ADD CONSTRAINT fk_eleve_classe
+        FOREIGN KEY (classe_id)
+            REFERENCES classe_scolaire(id)
+            ON DELETE RESTRICT,
+
+    ADD CONSTRAINT fk_eleve_parent
+        FOREIGN KEY (parent_id)
+            REFERENCES parent(id)
+            ON DELETE RESTRICT;
+
+
+ALTER TABLE classe_enseignant
+    ADD CONSTRAINT fk_classe_enseignant_enseignant
+        FOREIGN KEY (enseignant_id)
+            REFERENCES enseignant(id)
+            ON DELETE CASCADE,
+
+    ADD CONSTRAINT fk_classe_enseignant_classe
+        FOREIGN KEY (classe_id)
+            REFERENCES classe_scolaire(id)
+            ON DELETE CASCADE;
+
+
+ALTER TABLE devoir
+    ADD CONSTRAINT fk_devoir_matiere
+        FOREIGN KEY (matiere_id)
+            REFERENCES matiere(id)
+            ON DELETE RESTRICT,
+
+    ADD CONSTRAINT fk_devoir_classe
+        FOREIGN KEY (classe_id)
+            REFERENCES classe_scolaire(id)
+            ON DELETE RESTRICT,
+
+    ADD CONSTRAINT fk_devoir_enseignant
+        FOREIGN KEY (enseignant_id)
+            REFERENCES enseignant(id)
+            ON DELETE RESTRICT;
+
+
+ALTER TABLE note
+    ADD CONSTRAINT fk_note_eleve
+        FOREIGN KEY (eleve_id)
+            REFERENCES eleve(id)
+            ON DELETE RESTRICT,
+
+    ADD CONSTRAINT fk_note_devoir
+        FOREIGN KEY (devoir_id)
+            REFERENCES devoir(id)
+            ON DELETE RESTRICT,
+
+    ADD CONSTRAINT fk_note_enseignant
+        FOREIGN KEY (enseignant_id)
+            REFERENCES enseignant(id)
+            ON DELETE RESTRICT;
+
+
+ALTER TABLE presence
+    ADD CONSTRAINT fk_presence_eleve
+        FOREIGN KEY (eleve_id)
+            REFERENCES eleve(id)
+            ON DELETE RESTRICT,
+
+    ADD CONSTRAINT fk_presence_classe
+        FOREIGN KEY (classe_id)
+            REFERENCES classe_scolaire(id)
+            ON DELETE RESTRICT,
+
+    ADD CONSTRAINT fk_presence_matiere
+        FOREIGN KEY (matiere_id)
+            REFERENCES matiere(id)
+            ON DELETE RESTRICT,
+
+    ADD CONSTRAINT fk_presence_enseignant
+        FOREIGN KEY (enseignant_id)
+            REFERENCES enseignant(id)
+            ON DELETE RESTRICT;
+
+
+ALTER TABLE paiement
+    ADD CONSTRAINT fk_paiement_eleve
+        FOREIGN KEY (eleve_id)
+            REFERENCES eleve(id)
+            ON DELETE RESTRICT,
+
+    ADD CONSTRAINT fk_paiement_parent
+        FOREIGN KEY (parent_id)
+            REFERENCES parent(id)
+            ON DELETE RESTRICT;
+
+
+ALTER TABLE horaire_emploi_du_temp
+    ADD CONSTRAINT fk_horaire_matiere
+        FOREIGN KEY (matiere_id)
+            REFERENCES matiere(id)
+            ON DELETE RESTRICT,
+
+    ADD CONSTRAINT fk_horaire_classe
+        FOREIGN KEY (classe_id)
+            REFERENCES classe_scolaire(id)
+            ON DELETE RESTRICT,
+
+    ADD CONSTRAINT fk_horaire_enseignant
+        FOREIGN KEY (enseignant_id)
+            REFERENCES enseignant(id)
+            ON DELETE RESTRICT;
+
+
+ALTER TABLE notification
+    ADD CONSTRAINT fk_notification_destinataire
+        FOREIGN KEY (destinataire_id)
+            REFERENCES utilisateur(id)
+            ON DELETE CASCADE;

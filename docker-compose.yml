@@ -26,7 +26,7 @@ services:
     build: ./backend
     container_name: smart-school-backend
     environment:
-      DB_URL: jdbc:mysql://mysql:3306/smart_school?useSSL=false&serverTimezone=UTC
+      DB_URL: "jdbc:mysql://mysql:3306/smart_school?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
       DB_USERNAME: root
       DB_PASSWORD: root
 

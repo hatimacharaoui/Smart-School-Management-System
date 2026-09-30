@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import * as yup from "yup";
 import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup/src/index.ts";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {useAuth} from "../context/AuthContext.jsx";
 
 const schema = yup.object({
@@ -35,7 +35,7 @@ export default function Connexion() {
         setError("");
         try {
             await connexion(values.email, values.motDePasse);
-            navigate("/TableauDeBord");
+            navigate("/tableau-de-bord");
         } catch (exception) {
             setError("Email ou mot de passe incorrect");
         }

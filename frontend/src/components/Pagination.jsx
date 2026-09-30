@@ -9,20 +9,30 @@ export default function Pagination({ pagination }) {
     } = pagination;
 
     const premierElement =
-        totalElements === 0 ? 0 : (pageActuelle - 1) * taillePage + 1;
-    const dernierElement = Math.min(pageActuelle * taillePage, totalElements);
+        totalElements === 0
+            ? 0
+            : (pageActuelle - 1) * taillePage + 1;
+
+    const dernierElement =
+        Math.min(pageActuelle * taillePage, totalElements);
 
     return (
         <div className="pagination">
-      <span className="pagination-summary">
-        {premierElement}-{dernierElement} sur {totalElements}
-      </span>
+            <span className="pagination-summary">
+                {totalElements === 0
+                    ? "Aucun résultat"
+                    : `${premierElement} à ${dernierElement} sur ${totalElements}`}
+            </span>
+
             <label className="pagination-size">
-                Lignes par page
+                <span>Lignes par page</span>
+
                 <select
                     className="field"
                     value={taillePage}
-                    onChange={(event) => changerTaillePage(event.target.value)}
+                    onChange={(event) =>
+                        changerTaillePage(event.target.value)
+                    }
                 >
                     <option value="5">5</option>
                     <option value="10">10</option>
@@ -30,23 +40,26 @@ export default function Pagination({ pagination }) {
                     <option value="50">50</option>
                 </select>
             </label>
+
             <div className="pagination-actions">
                 <button
                     type="button"
                     className="button secondary small"
                     onClick={() => changerPage(pageActuelle - 1)}
-                    disabled={pageActuelle === 1}
+                    disabled={pageActuelle <= 1}
                 >
                     Précédent
                 </button>
+
                 <span>
-          Page {pageActuelle} / {nombrePages}
-        </span>
+                    Page {pageActuelle} sur {nombrePages}
+                </span>
+
                 <button
                     type="button"
                     className="button secondary small"
                     onClick={() => changerPage(pageActuelle + 1)}
-                    disabled={pageActuelle === nombrePages}
+                    disabled={pageActuelle >= nombrePages}
                 >
                     Suivant
                 </button>

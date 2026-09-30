@@ -15,11 +15,7 @@ export default function PaiementsAdministrateur() {
     const [statut, setStatut] = useState("");
     const [modifications, setModifications] = useState({});
     const [message, setMessage] = useState("");
-    const pagination = usePagination(
-        pagePaiements,
-        10,
-        mois + "-" + statut,
-    );
+    const pagination = usePagination(pagePaiements, 10, mois + "-" + statut,);
 
     useEffect(() => {
         chargerReferences();
@@ -209,29 +205,27 @@ export default function PaiementsAdministrateur() {
                                 <button
                                     className="button secondary small"
                                     onClick={() => enregistrer(paiement)}
-                                >
-                                    {paiement.id ? "Modifier" : "Enregistrer"}
-                                </button>
+                                >{paiement.id ? "Modifier" : "Enregistrer"}</button>
+
                                 {paiement.urlJustificatif && (
                                     <button
                                         className="button secondary small"
                                         onClick={() => voirJustificatif(paiement)}
-                                    >
-                                        Voir le justificatif</button>
+                                    >Voir le justificatif</button>
                                 )}
+
                                 {paiement.id && paiement.statut !== "VALIDE" && (
                                     <button
                                         className="button small"
                                         onClick={() => modifierStatut(paiement, "VALIDE")}
-                                    >
-                                        Valider</button>
+                                    >Valider</button>
                                 )}
+
                                 {paiement.id && paiement.statut !== "REFUSE" && (
                                     <button
                                         className="button danger small"
                                         onClick={() => modifierStatut(paiement, "REFUSE")}
-                                    >
-                                        Refuser</button>
+                                    >Refuser</button>
                                 )}
                             </td>
                         </tr>

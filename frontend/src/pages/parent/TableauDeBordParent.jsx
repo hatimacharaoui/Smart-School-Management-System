@@ -122,7 +122,7 @@ export default function TableauDeBordParent() {
             </div>
 
             <div className="card card-body child-file">
-                <h2>Fiche de l’enfant</h2>
+                <h2>Fiche de l’enfant</h2><br/>
                 <div className="child-file-grid">
                     <div>
                         <span className="muted">Nom complet</span>
